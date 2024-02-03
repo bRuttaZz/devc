@@ -1,0 +1,6 @@
+# cache directory used by devc
+cache-dir: "~/.cache/devc"
+
+proot:
+  url: https://proot.gitlab.io/proot/bin/proot
+  version: v5.3.1
