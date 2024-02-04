@@ -5,8 +5,8 @@ import (
 	"os"
 
 	"github.com/bruttazz/devc/cmd"
-	"github.com/bruttazz/devc/internal"
-	"github.com/bruttazz/devc/internal/environment"
+	"github.com/bruttazz/devc/internal/configs"
+	"github.com/bruttazz/devc/internal/env"
 )
 
 func main() {
@@ -16,9 +16,9 @@ func main() {
 			os.Exit(1)
 		}
 	}()
-	internal.LoadConfig()
+	configs.LoadConfig()
 
-	err := environment.SetupEnv("build")
+	err := env.SetupEnv("build")
 	if err != nil {
 		panic(err.Error())
 	}

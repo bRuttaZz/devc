@@ -1,10 +1,10 @@
-package environment
+package env
 
 import (
 	"fmt"
 	"path/filepath"
 
-	"github.com/bruttazz/devc/internal"
+	"github.com/bruttazz/devc/internal/configs"
 	"github.com/bruttazz/devc/internal/utils"
 )
 
@@ -47,7 +47,7 @@ const nameServeString string = "nameserver 8.8.8.8\nnameserver 8.8.4.4"
 
 // Add modifications to the container root
 func finishUpRootBin(envPath string) (err error) {
-	basePath := filepath.Join(envPath, internal.Config.EnvSettings.RootDir)
+	basePath := filepath.Join(envPath, configs.Config.EnvSettings.RootDir)
 
 	// setup /etc/resolv.conf for assured internet access
 	err = utils.WriteTextToFile(
@@ -79,7 +79,7 @@ func setupActivateScript(envPath string) (err error) {
 
 	activateScriptPath := filepath.Join(
 		envPath,
-		internal.Config.EnvSettings.DevcBin,
+		configs.Config.EnvSettings.DevcBin,
 		"activate",
 	)
 

@@ -1,21 +1,21 @@
-package environment
+package env
 
 import (
 	"fmt"
 	"path/filepath"
 
-	"github.com/bruttazz/devc/internal"
+	"github.com/bruttazz/devc/internal/configs"
 	"github.com/bruttazz/devc/internal/utils"
 )
 
 func setProot(envPath string) (err error) {
-	outfile := filepath.Join(envPath, internal.Config.EnvSettings.DevcBin, "proot")
+	outfile := filepath.Join(envPath, configs.Config.EnvSettings.DevcBin, "proot")
 
-	err = utils.GetCache(outfile, "proot")
+	err = utils.GetCache(outfile, configs.Config.CacheDirSettings.Proot)
 	if err != nil {
 
 		fmt.Println("[proot setup] no cache found! attempt downloading..", err)
-		err = utils.DownloadFile(outfile, internal.Config.Proot.Url)
+		err = utils.DownloadFile(outfile, configs.Config.Proot.Url)
 		if err == nil {
 			e := utils.SetCache(outfile, "proot", "")
 			if e != nil {

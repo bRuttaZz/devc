@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/bruttazz/devc/internal"
+	"github.com/bruttazz/devc/internal/configs"
 )
 
 // copy a file from source to destination
@@ -33,13 +33,13 @@ func CheckCacheExists(file string) (exist bool) {
 	fileInfo, err := os.Stat(file)
 	// exist = !errors.Is(err, os.ErrNotExist)
 	if err == nil {
-		exist = fileInfo.ModTime().Sub(time.Now()).Hours() < float64(internal.Config.CacheExpiryHrs)
+		exist = fileInfo.ModTime().Sub(time.Now()).Hours() < float64(configs.Config.CacheExpiryHrs)
 	}
 	return
 }
 
 func GetCache(dest string, file string) (err error) {
-	srcFile := filepath.Join(internal.Config.CacheDir, file)
+	srcFile := filepath.Join(configs.Config.CacheDir, file)
 
 	exist := CheckCacheExists(srcFile)
 	if !exist {
@@ -50,7 +50,7 @@ func GetCache(dest string, file string) (err error) {
 }
 
 func SetCache(src string, name string, subdir string) (err error) {
-	os.MkdirAll(filepath.Join(internal.Config.CacheDir, subdir), 0755)
-	_, err = copyFile(filepath.Join(internal.Config.CacheDir, subdir, name), src)
+	os.MkdirAll(filepath.Join(configs.Config.CacheDir, subdir), 0755)
+	_, err = copyFile(filepath.Join(configs.Config.CacheDir, subdir, name), src)
 	return
 }
