@@ -1,5 +1,6 @@
 # cache directory used by devc
-cache-dir: "~/.cache/devc"
+cache-dir: ".cache/devc"
+cache-expiry-hrs: 720   # 30 days
 
 proot:
   url: https://proot.gitlab.io/proot/bin/proot

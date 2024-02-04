@@ -18,7 +18,7 @@ func main() {
 	}()
 	internal.LoadConfig()
 
-	err := environment.DownloadProot("build/proot")
+	err := environment.SetupBin("build")
 	if err != nil {
 		panic(err.Error())
 	}

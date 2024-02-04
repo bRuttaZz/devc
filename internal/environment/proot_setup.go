@@ -1,40 +1,39 @@
 package environment
 
 import (
-	"errors"
 	"fmt"
-	"io"
-	"net/http"
 	"os"
+	"path/filepath"
 
 	"github.com/bruttazz/devc/internal"
+	"github.com/bruttazz/devc/internal/utils"
 )
 
-// For downloading Proot setup
-// TODO : add download progress
-func DownloadProot(out_file_path string) (err error) {
-	defer func() {
-		if r := recover(); r != nil {
-			err = errors.New(fmt.Sprint(r))
+func SetProot(envPath string) (err error) {
+	outfile := filepath.Join(envPath, "bin", "proot")
+
+	err = utils.GetCache(outfile, "proot")
+	if err != nil {
+
+		fmt.Println("[proot setup] no cache found! attempt downloading..", err)
+		err = utils.DownloadFile(outfile, internal.Config.Proot.Url)
+		if err == nil {
+			e := utils.SetCache(outfile, "proot", "")
+			if e != nil {
+				fmt.Printf("[proot setup] error setting cache : %v ! skipping..", e)
+			}
 		}
-	}()
-
-	file, err := os.Create(out_file_path)
-	if err != nil {
-		panic("error creating proot binary: " + err.Error())
 	}
-	defer file.Close()
-
-	resp, err := http.Get(internal.Config.Proot.Url)
-	if err != nil {
-		panic("error downloading proot binary: " + err.Error())
+	if err == nil {
+		err = utils.MakeExecutable(outfile)
 	}
-	defer resp.Body.Close()
+	return
+}
 
-	_, err = io.Copy(file, resp.Body)
-	if err != nil {
-		panic("error forming proot binary: " + err.Error())
-	}
-
-	return nil
+func SetupBin(envPath string) (err error) {
+	// create bin dir
+	os.MkdirAll(filepath.Join(envPath, "bin"), 0755)
+	// setup proot
+	err = SetProot(envPath)
+	return
 }
