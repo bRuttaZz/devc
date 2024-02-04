@@ -6,7 +6,6 @@ import (
 
 	"github.com/bruttazz/devc/cmd"
 	"github.com/bruttazz/devc/internal/configs"
-	"github.com/bruttazz/devc/internal/env"
 )
 
 func main() {
@@ -17,10 +16,5 @@ func main() {
 		}
 	}()
 	configs.LoadConfig()
-
-	err := env.SetupEnv("build")
-	if err != nil {
-		panic(err.Error())
-	}
 	cmd.Execute()
 }

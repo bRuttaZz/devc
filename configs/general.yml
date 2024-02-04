@@ -5,3 +5,6 @@ cache-expiry-hrs: 720   # 30 days
 proot:
   url: https://proot.gitlab.io/proot/bin/proot
   version: v5.3.1
+
+buildah:
+  path: buildah

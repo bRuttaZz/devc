@@ -8,5 +8,7 @@ Containers for Developers (Container as a Directory)
 
 
 ## TODOS
+* Integration of buildah module (currently buildah cli is used)
 * Documentation
 * logger addition
+* garbage collection and lot more

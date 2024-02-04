@@ -17,6 +17,8 @@
 
 6. devc rmi <image>
 
-7. devc login
+7. devc login registry
 	
 8. devc logout
+
+9. devc prune --wipe

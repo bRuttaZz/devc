@@ -1,6 +1,6 @@
 
-run: main.go go.mod
-	@go run .
+run: devc.go go.mod
+	- @go run devc.go build build
 
-build: main.go cmd internal go.mod 
-	@go build -o build/devc
+build: devc.go cmd internal go.mod 
+	- @go build -o build/devc 

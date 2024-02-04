@@ -64,7 +64,11 @@ func finishUpRootBin(envPath string) (err error) {
 		deactivateString,
 	)
 	if err != nil {
-		err = utils.MakeExecutable(filepath.Join(basePath, "bin", "deactivate"))
+		err = utils.MakeExecutable(filepath.Join(
+			basePath,
+			"bin",
+			"deactivate",
+		))
 	}
 
 	return
@@ -72,18 +76,16 @@ func finishUpRootBin(envPath string) (err error) {
 
 // Setup activate script to the devc bin
 func setupActivateScript(envPath string) (err error) {
-	absEnvPath, err := filepath.Abs(envPath)
-	if err != nil {
-		return
-	}
-
 	activateScriptPath := filepath.Join(
 		envPath,
 		configs.Config.EnvSettings.DevcBin,
 		"activate",
 	)
 
-	err = utils.WriteTextToFile(activateScriptPath, fmt.Sprintf(activateString, absEnvPath))
+	err = utils.WriteTextToFile(activateScriptPath, fmt.Sprintf(
+		activateString,
+		filepath.Join(envPath, configs.Config.EnvSettings.DevcBin),
+	))
 	if err != nil {
 		err = utils.MakeExecutable(activateScriptPath)
 	}
