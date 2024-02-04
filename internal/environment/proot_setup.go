@@ -2,15 +2,14 @@ package environment
 
 import (
 	"fmt"
-	"os"
 	"path/filepath"
 
 	"github.com/bruttazz/devc/internal"
 	"github.com/bruttazz/devc/internal/utils"
 )
 
-func SetProot(envPath string) (err error) {
-	outfile := filepath.Join(envPath, "bin", "proot")
+func setProot(envPath string) (err error) {
+	outfile := filepath.Join(envPath, internal.Config.EnvSettings.DevcBin, "proot")
 
 	err = utils.GetCache(outfile, "proot")
 	if err != nil {
@@ -27,13 +26,5 @@ func SetProot(envPath string) (err error) {
 	if err == nil {
 		err = utils.MakeExecutable(outfile)
 	}
-	return
-}
-
-func SetupBin(envPath string) (err error) {
-	// create bin dir
-	os.MkdirAll(filepath.Join(envPath, "bin"), 0755)
-	// setup proot
-	err = SetProot(envPath)
 	return
 }

@@ -13,3 +13,13 @@ func MakeExecutable(path string) (err error) {
 	}
 	return
 }
+
+func WriteTextToFile(path string, text string) (err error) {
+	fileObj, err := os.Create(path)
+	if err != nil {
+		return
+	}
+	defer fileObj.Close()
+	_, err = fileObj.Write([]byte(text))
+	return
+}

@@ -8,6 +8,12 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
+type EnvSettings struct {
+	BuildDir string
+	RootDir  string
+	DevcBin  string
+}
+
 type ConfigStruct struct {
 	Proot struct {
 		Url     string `yaml:"url"`
@@ -18,6 +24,7 @@ type ConfigStruct struct {
 	CacheExpiryHrs float64 `yaml:"cache-expiry-hrs"`
 	HomeDir        string
 	UserName       string
+	EnvSettings    EnvSettings
 }
 
 var Config ConfigStruct
@@ -38,4 +45,9 @@ func LoadConfig() {
 	Config.HomeDir = usr.HomeDir
 	Config.UserName = usr.Username
 	Config.CacheDir = filepath.Join(Config.HomeDir, Config.CacheDir)
+	Config.EnvSettings = EnvSettings{
+		BuildDir: "builds",
+		RootDir:  "root",
+		DevcBin:  "bin",
+	}
 }

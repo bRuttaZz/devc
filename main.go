@@ -18,7 +18,7 @@ func main() {
 	}()
 	internal.LoadConfig()
 
-	err := environment.SetupBin("build")
+	err := environment.SetupEnv("build")
 	if err != nil {
 		panic(err.Error())
 	}
