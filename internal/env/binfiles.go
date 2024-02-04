@@ -17,14 +17,21 @@ type deactivate &>/dev/null && deactivate
 _OLD_PATH=$PATH
 _OLD_PS1=$PS1
 
+_OLD_DEVC_WRKDIR=$DEVC_WRKDIR
+
+if [ -z "${DEVC_WRKDIR}" ]
+then
+	DEVC_WRKDIR=/devc
+fi;
+
 export PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"          
 export PS1="(devc) $PS1"  
 
 "$_DIR_NAME/proot" \
     -r "$_DIR_NAME/../root" \
-    -b .:/WKDIR \
+    -b ".:$DEVC_WRKDIR" \
     -b "$SHELL:/bin/sh !" \
-    -w /WKDIR \
+    -w "$DEVC_WRKDIR" \
     -0 \
     -b /dev \
     -b /proc \
@@ -35,10 +42,13 @@ export PS1="(devc) $PS1"
 export PATH=$_OLD_PATH
 export PS1=$_OLD_PS1
 
+DEVC_WRKDIR=$_OLD_DEVC_WRKDIR
+
 unset _SELF_FILE_NAME
 unset _DIR_NAME
 unset _OLD_PATH
 unset _OLD_PS1
+unset _OLD_DEVC_WRKDIR
 `
 
 const deactivateString string = "#!/bin/sh\nkill -9 $PPID"
@@ -63,7 +73,7 @@ func finishUpRootBin(envPath string) (err error) {
 		filepath.Join(basePath, "bin", "deactivate"),
 		deactivateString,
 	)
-	if err != nil {
+	if err == nil {
 		err = utils.MakeExecutable(filepath.Join(
 			basePath,
 			"bin",

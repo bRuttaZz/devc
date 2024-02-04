@@ -11,4 +11,6 @@ Containers for Developers (Container as a Directory)
 * Integration of buildah module (currently buildah cli is used)
 * Documentation
 * logger addition
-* garbage collection and lot more
+* login logout and registry cache and handling
+* packaging
+* PS1 issue when using devc command

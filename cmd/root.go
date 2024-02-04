@@ -16,9 +16,6 @@ var rootCmd = &cobra.Command{
 	Short: "Containers for Developers (Container as a Directory)",
 	Long: `devc: Containers for Developers (Container as a Directory)!
 	Provides with a developer friendly interface to build your application with containers!`,
-	Run: func(cmd *cobra.Command, args []string) {
-		// print a nice version with options
-	},
 }
 
 func init() {
@@ -28,9 +25,11 @@ func init() {
 	rootCmd.AddCommand(buildCmd)
 	rootCmd.AddCommand(loginCmd)
 	rootCmd.AddCommand(logoutCmd)
-	rootCmd.AddCommand(psCmd)
+	rootCmd.AddCommand(imagesCmd)
 	rootCmd.AddCommand(rmCmd)
 	rootCmd.AddCommand(rmiCmd)
+	rootCmd.AddCommand(pullCmd)
+	rootCmd.AddCommand(pruneCmd)
 }
 
 func Execute() {

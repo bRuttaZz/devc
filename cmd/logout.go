@@ -11,6 +11,6 @@ var logoutCmd = &cobra.Command{
 	Long:  `logout from a registry.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		// print a nice version with options
-		fmt.Println("got here on logout")
+		fmt.Println("TO BE IMPLEMENTED!")
 	},
 }

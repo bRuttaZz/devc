@@ -6,14 +6,14 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var rmiOptions configs.RmiCmdOptions
+var imagesOptions configs.ImagesCmdOptions
 
-var rmiCmd = &cobra.Command{
-	Use:   "rmi image-id",
-	Short: "remove a cached image",
-	Long: `remove a cached image by id
+var imagesCmd = &cobra.Command{
+	Use:   "images",
+	Short: "show all the cached images",
+	Long: `Show all the cache images. 
 Images will be cached for latter use if devc env is created using "pull" command`,
 	Run: func(cmd *cobra.Command, args []string) {
-		builder.Rmi(&rmiOptions, args)
+		builder.Images(&imagesOptions, args)
 	},
 }

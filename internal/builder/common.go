@@ -9,6 +9,7 @@ import (
 	"github.com/bruttazz/devc/internal/configs"
 )
 
+// execute command
 func runCommand(name string, cmd []string) (err error) {
 	cmd_ := exec.Command(
 		name,
@@ -30,7 +31,7 @@ func getGlobalBuildahOptions(abs, envPath string) (cmd []string) {
 	if len(envPath) > 0 {
 		rootPath = filepath.Join(abs, envPath, configs.Config.EnvSettings.BuildDir)
 	} else {
-		rootPath = filepath.Join(abs, configs.Config.CacheDir, configs.Config.CacheDirSettings.Buildah)
+		rootPath = filepath.Join(configs.Config.CacheDir, configs.Config.CacheDirSettings.Buildah)
 	}
 	cmd = []string{
 		"--root",
@@ -55,5 +56,18 @@ func getBuildOptions(abs, envPath string) (cmd []string) {
 			filepath.Join(abs, envPath, configs.Config.EnvSettings.RootDir),
 		),
 	}
+	return
+}
+
+// garbage collection
+func clearBuildCache(envPath string) (err error) {
+	var options = getGlobalBuildahOptions("", envPath)
+	options = append(options, "prune")
+	options = append(options, "-af")
+	err = runCommand(configs.Config.Buildah.Path, options)
+	if err != nil {
+		return
+	}
+	err = runCommand("rm", []string{"-rf", options[1]})
 	return
 }

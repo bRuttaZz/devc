@@ -11,6 +11,6 @@ var loginCmd = &cobra.Command{
 	Long:  `login into a registry. using the username and password.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		// print a nice version with options
-		fmt.Println("got here on login")
+		fmt.Println("TO BE IMPLEMENTED!")
 	},
 }
