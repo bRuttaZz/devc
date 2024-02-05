@@ -78,7 +78,6 @@ jobs:
     - name: build
       run: |
         echo "Building devc"
-        go install golang.org/x/tools/gopls@latest
         go build .
       working-directory: "."
 
