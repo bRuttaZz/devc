@@ -75,11 +75,12 @@ jobs:
     #   modify them (or add more) to build your code if your project, please refer to the EXAMPLE below for guidance.
 
     # go version 1.23 is required for the flow to work
-    # - name: build
-    #   run: |
-    #     echo "Building devc"
-    #     go build .
-    #   working-directory: "."
+    - name: build
+      run: |
+        echo "Building devc"
+        go install golang.org/x/tools/gopls@latest
+        go build .
+      working-directory: "."
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
