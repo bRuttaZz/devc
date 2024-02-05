@@ -21,7 +21,8 @@ type CacheDirSettingsStruct struct {
 }
 
 type ConfigStruct struct {
-	Proot struct {
+	Version string `yaml:"version"`
+	Proot   struct {
 		Url     string `yaml:"url"`
 		Version string `yaml:"version"`
 	} `yaml:"proot"`

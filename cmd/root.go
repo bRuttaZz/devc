@@ -6,7 +6,6 @@ import (
 
 	"github.com/bruttazz/devc/internal/configs"
 	"github.com/spf13/cobra"
-	// "github.com/containers/buildah"
 )
 
 var roomCmdOptions configs.RootOptions
@@ -15,11 +14,22 @@ var rootCmd = &cobra.Command{
 	Use:   "devc",
 	Short: "Containers for Developers (Container as a Directory)",
 	Long: `devc: Containers for Developers (Container as a Directory)!
-	Provides with a developer friendly interface to build your application with containers!`,
+Provides with a developer friendly interface to build your application with containers!
+Create easy to use virtual-environments from Containerfiles or container images, activate it, 
+develop using it, make changes to it and reuse it. 
+`,
+	Run: func(cmd *cobra.Command, args []string) {
+		if roomCmdOptions.Version {
+			fmt.Printf("devc %v\n", configs.Config.Version)
+			return
+		}
+		fmt.Printf("\nDEVC %v\n\n", configs.Config.Version)
+		cmd.Help()
+	},
 }
 
 func init() {
-	rootCmd.PersistentFlags().BoolVar(&roomCmdOptions.Verbose, "verbose", false, "Dispaly detailed debugging logs")
+	rootCmd.PersistentFlags().BoolVarP(&roomCmdOptions.Version, "version", "v", false, "Get current version")
 
 	rootCmd.AddCommand(activateCmd)
 	rootCmd.AddCommand(buildCmd)

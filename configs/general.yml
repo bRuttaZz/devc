@@ -1,3 +1,6 @@
+# devc version
+version: v1.0.0
+
 # cache directory used by devc
 cache-dir: ".cache/devc"
 cache-expiry-hrs: 720   # 30 days

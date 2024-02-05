@@ -1,7 +1,7 @@
 package configs
 
 type RootOptions struct {
-	Verbose bool
+	Version bool
 }
 
 type ActivateCmdOptions struct {
