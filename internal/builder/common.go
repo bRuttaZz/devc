@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 
 	"github.com/bruttazz/devc/internal/configs"
+	"github.com/bruttazz/devc/internal/utils"
 )
 
 // execute command
@@ -31,7 +32,7 @@ func getGlobalBuildahOptions(abs, envPath string) (cmd []string) {
 	if len(envPath) > 0 {
 		rootPath = filepath.Join(abs, envPath, configs.Config.EnvSettings.BuildDir)
 	} else {
-		rootPath = filepath.Join(configs.Config.CacheDir, configs.Config.CacheDirSettings.Buildah)
+		rootPath = filepath.Join(configs.Config.CacheDir, configs.Config.CacheDirSettings.BuildahCache)
 	}
 	cmd = []string{
 		"--root",
@@ -39,6 +40,17 @@ func getGlobalBuildahOptions(abs, envPath string) (cmd []string) {
 		"--storage-driver",
 		configs.Config.CacheDirSettings.StorageDriver,
 	}
+	return
+}
+
+// get authfile option for buildah cli
+func getAuthFileOptions() (cmd []string, err error) {
+	var authFile = filepath.Join(
+		configs.Config.CacheDir,
+		configs.Config.CacheDirSettings.LoginAuthFile,
+	)
+	cmd = []string{"--authfile", authFile}
+	err = utils.TouchAJSONFile(authFile)
 	return
 }
 

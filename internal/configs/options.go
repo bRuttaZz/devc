@@ -14,14 +14,23 @@ type BuildCmdOptions struct {
 	KeepCache     bool
 }
 
-type PullCmdOptions struct {
+type ImagesCmdOptions struct {
 }
 
-type ImagesCmdOptions struct {
+type LoginCmdOptions struct {
+	Username string
+	Password string
+}
+
+type LogoutCmdOptions struct {
 }
 
 type PruneCmdOptions struct {
 	Wipe bool
+}
+
+type PullCmdOptions struct {
+	NoCaching bool
 }
 
 type RmCmdOptions struct {

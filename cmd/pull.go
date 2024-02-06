@@ -19,3 +19,7 @@ available registries. One can add new registries by executing "devc login"
 		builder.Pull(&pullOptions, args)
 	},
 }
+
+func init() {
+	pullCmd.PersistentFlags().BoolVar(&pullOptions.NoCaching, "rm", false, "Do not create local image cache, after building devc environment")
+}

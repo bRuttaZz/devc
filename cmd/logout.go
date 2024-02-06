@@ -1,16 +1,18 @@
 package cmd
 
 import (
-	"fmt"
+	"github.com/bruttazz/devc/internal/builder"
+	"github.com/bruttazz/devc/internal/configs"
 	"github.com/spf13/cobra"
 )
 
+var logoutOptions configs.LogoutCmdOptions
+
 var logoutCmd = &cobra.Command{
-	Use:   "logout",
-	Short: "logout from a registry",
-	Long:  `logout from a registry.`,
+	Use:   "logout registry-uri",
+	Short: "logout from a previously loged in registry",
+	Long:  `logout from a previosuly logged in registries using "devc login".`,
 	Run: func(cmd *cobra.Command, args []string) {
-		// print a nice version with options
-		fmt.Println("TO BE IMPLEMENTED!")
+		builder.Logout(&logoutOptions, args)
 	},
 }

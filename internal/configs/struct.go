@@ -15,8 +15,10 @@ type EnvSettingsStruct struct {
 }
 
 type CacheDirSettingsStruct struct {
-	Proot         string
-	Buildah       string
+	ProotCache    string
+	BuildahCache  string
+	LoginAuthFile string
+
 	StorageDriver string
 }
 

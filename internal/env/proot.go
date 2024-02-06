@@ -11,7 +11,7 @@ import (
 func setProot(envPath string) (err error) {
 	outfile := filepath.Join(envPath, configs.Config.EnvSettings.DevcBin, "proot")
 
-	err = utils.GetCache(outfile, configs.Config.CacheDirSettings.Proot)
+	err = utils.GetCache(outfile, configs.Config.CacheDirSettings.ProotCache)
 	if err != nil {
 
 		fmt.Println("[proot setup] no cache found! attempt downloading..", err)

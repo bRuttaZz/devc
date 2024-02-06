@@ -21,7 +21,7 @@ _OLD_DEVC_WRKDIR=$DEVC_WRKDIR
 
 if [ -z "${DEVC_WRKDIR}" ]
 then
-	DEVC_WRKDIR=/devc
+	DEVC_WRKDIR=/home/%v/devc
 fi;
 
 export PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"          
@@ -91,10 +91,10 @@ func setupActivateScript(envPath string) (err error) {
 		configs.Config.EnvSettings.DevcBin,
 		"activate",
 	)
-
 	err = utils.WriteTextToFile(activateScriptPath, fmt.Sprintf(
 		activateString,
 		filepath.Join(envPath, configs.Config.EnvSettings.DevcBin),
+		utils.CreateRandomString(),
 	))
 	if err != nil {
 		err = utils.MakeExecutable(activateScriptPath)
