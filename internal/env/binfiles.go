@@ -30,6 +30,7 @@ export PS1="(devc) $PS1"
 "$_DIR_NAME/proot" \
     -r "$_DIR_NAME/../root" \
     -b ".:$DEVC_WRKDIR" \
+	-b "$_DIR_NAME/deactivate:/bin/deactivate" \
     -b "$SHELL:/bin/sh !" \
     -w "$DEVC_WRKDIR" \
     -0 \
@@ -64,40 +65,36 @@ func finishUpRootBin(envPath string) (err error) {
 		filepath.Join(basePath, "etc", "resolv.conf"),
 		nameServeString,
 	)
-	if err != nil {
-		return
-	}
-
-	// setup deactivate file to bin/deactivate
-	err = utils.WriteTextToFile(
-		filepath.Join(basePath, "bin", "deactivate"),
-		deactivateString,
-	)
-	if err == nil {
-		err = utils.MakeExecutable(filepath.Join(
-			basePath,
-			"bin",
-			"deactivate",
-		))
-	}
-
 	return
 }
 
 // Setup activate script to the devc bin
 func setupActivateScript(envPath string) (err error) {
-	activateScriptPath := filepath.Join(
+	scriptPath := filepath.Join(
 		envPath,
 		configs.Config.EnvSettings.DevcBin,
 		"activate",
 	)
-	err = utils.WriteTextToFile(activateScriptPath, fmt.Sprintf(
+	err = utils.WriteTextToFile(scriptPath, fmt.Sprintf(
 		activateString,
 		filepath.Join(envPath, configs.Config.EnvSettings.DevcBin),
 		utils.CreateRandomString(),
 	))
 	if err != nil {
-		err = utils.MakeExecutable(activateScriptPath)
+		return
 	}
+	scriptPath = filepath.Join(
+		envPath,
+		configs.Config.EnvSettings.DevcBin,
+		"deactivate",
+	)
+	err = utils.WriteTextToFile(
+		scriptPath,
+		deactivateString,
+	)
+	if err != nil {
+		return
+	}
+	err = utils.MakeExecutable(scriptPath)
 	return
 }
