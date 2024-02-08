@@ -12,6 +12,7 @@ type BuildCmdOptions struct {
 	Containerfile string
 	Context       string
 	KeepCache     bool
+	BuildArgs     []string
 }
 
 type ImagesCmdOptions struct {

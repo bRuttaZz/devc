@@ -27,4 +27,5 @@ func init() {
 	buildCmd.PersistentFlags().StringVarP(&buildOptions.Containerfile, "file", "f", "", "Explicitly point to a container file (can also provide valid urls)")
 	buildCmd.PersistentFlags().StringVarP(&buildOptions.Context, "context", "c", ".", "Specify the build context to be used")
 	buildCmd.PersistentFlags().BoolVar(&buildOptions.KeepCache, "keep-cache", false, "Keep build cache after successfull build of devc environement")
+	buildCmd.PersistentFlags().StringArrayVar(&buildOptions.BuildArgs, "build-arg", []string{}, "`argument=value` to supply to the builder")
 }

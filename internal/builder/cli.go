@@ -26,6 +26,9 @@ func Builder(opts *configs.BuildCmdOptions, args []string) {
 		panic("[devc error] : " + err.Error())
 	}
 	baseOptions = append(baseOptions, authFileOpts...)
+	for i := 0; i < len(opts.BuildArgs); i++ {
+		baseOptions = append(baseOptions, []string{"--build-arg", opts.BuildArgs[i]}...)
+	}
 
 	if len(opts.Containerfile) > 0 {
 		baseOptions = append(baseOptions, "--file")
