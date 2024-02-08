@@ -16,6 +16,7 @@ type deactivate &>/dev/null && deactivate
 # setup for proot
 _OLD_PATH=$PATH
 _OLD_PS1=$PS1
+_OLD_SHELL=$SHELL
 
 _OLD_DEVC_WRKDIR=$DEVC_WRKDIR
 
@@ -24,24 +25,37 @@ then
 	DEVC_WRKDIR=/home/%v/devc
 fi;
 
+# finding and fallbacking the default shell
+if [ -f "$_DIR_NAME/../root/etc/passwd" ]
+then 
+    export SHELL=$(awk -F: -v user="root" '$1 == user {print $NF}' "$_DIR_NAME/../root/etc/passwd")
+fi;
+if [ -z "${SHELL}" ]
+then
+    export SHELL=/bin/sh
+fi;
+
 export PATH="$PATH:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"          
 export PS1="(devc) $PS1"  
+echo "export PS1=\"${PS1}\"" > "$_DIR_NAME/.rc";
 
 "$_DIR_NAME/proot" \
     -r "$_DIR_NAME/../root" \
     -b ".:$DEVC_WRKDIR" \
 	-b "$_DIR_NAME/deactivate:/bin/deactivate" \
-    -b "$SHELL:/bin/sh !" \
+    -b "$_DIR_NAME/.rc:/home/$USER/.$(basename $SHELL)rc" \
     -w "$DEVC_WRKDIR" \
     -0 \
     -b /dev \
     -b /proc \
     -b /sys \
-    "/bin/sh"
+    "$SHELL" ;
 
+rm "$_DIR_NAME/.rc";
 # retaining the initial stage
 export PATH=$_OLD_PATH
 export PS1=$_OLD_PS1
+export SHELL=$_OLD_SHELL
 
 DEVC_WRKDIR=$_OLD_DEVC_WRKDIR
 
@@ -50,6 +64,7 @@ unset _DIR_NAME
 unset _OLD_PATH
 unset _OLD_PS1
 unset _OLD_DEVC_WRKDIR
+
 `
 
 const deactivateString string = "#!/bin/sh\nkill -9 $PPID"

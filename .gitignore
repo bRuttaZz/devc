@@ -21,3 +21,5 @@
 go.work
 
 /build
+devc
+venv

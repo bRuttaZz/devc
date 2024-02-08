@@ -67,7 +67,7 @@ func Activate(opts *configs.ActivateCmdOptions, args []string) {
 	}
 	err := runCommand(os.Getenv("SHELL"), []string{
 		"-c",
-		fmt.Sprintf("PS1=\"[\\u@\\h \\W]\\$\" source %v",
+		fmt.Sprintf("PS1=\"[\\u@\\h \\W] \\$ \" source %v",
 			filepath.Join(
 				args[0],
 				configs.Config.EnvSettings.DevcBin,
