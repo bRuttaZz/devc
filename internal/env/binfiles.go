@@ -46,9 +46,14 @@ echo "export PS1=\"${PS1}\"" > "$_DIR_NAME/.rc";
     -b "$_DIR_NAME/.rc:/home/$USER/.$(basename $SHELL)rc" \
     -w "$DEVC_WRKDIR" \
     -0 \
-    -b /dev \
+	-b /dev \
     -b /proc \
     -b /sys \
+    -b /etc/host.conf \
+    -b /etc/hosts \
+    -b /etc/nsswitch.conf \
+    -b /etc/resolv.conf \
+    -b /tmp/ \
     "$SHELL" ;
 
 rm "$_DIR_NAME/.rc";
@@ -75,7 +80,7 @@ const nameServeString string = "nameserver 8.8.8.8\nnameserver 8.8.4.4"
 func finishUpRootBin(envPath string) (err error) {
 	basePath := filepath.Join(envPath, configs.Config.EnvSettings.RootDir)
 
-	// setup /etc/resolv.conf for assured internet access
+	// setup /etc/resolv.conf for assured internet access (not required if mounting the file system)
 	err = utils.WriteTextToFile(
 		filepath.Join(basePath, "etc", "resolv.conf"),
 		nameServeString,
