@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/bruttazz/devc/internal"
 	"github.com/bruttazz/devc/internal/configs"
 	"github.com/spf13/cobra"
 )
@@ -20,6 +21,10 @@ develop using it, make changes to it and reuse it.
 `,
 	Run: func(cmd *cobra.Command, args []string) {
 		if roomCmdOptions.Version {
+			err := internal.TestBuildah()
+			if !err {
+				panic(fmt.Sprintf("cannot resolve dependency : %v", configs.Config.Buildah.Path))
+			}
 			fmt.Printf("devc %v\n", configs.Config.Version)
 			return
 		}

@@ -1,5 +1,7 @@
 # devc
-![tad](./assets/tad.png)
+
+<a href="./assets/LICENSE.md" title="Logo by Dev G"><img src="./assets/tad.png" width=250 alt="Logo by Dev G"/></a>
+
 Containers for Developers (Container as a Directory)
 
 ![Workflow status](https://github.com/bruttazz/devc/actions/workflows/codeql.yml/badge.svg)
@@ -14,3 +16,8 @@ Containers for Developers (Container as a Directory)
 * Documentation
 * logger addition
 * packaging
+
+<br><br>
+
+**Credits**
+* Logo : [Dev G](https://www.instagram.com/dev.g.__)

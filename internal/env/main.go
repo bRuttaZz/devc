@@ -22,8 +22,8 @@ func SetupEnv(envPath string) (err error) {
 		return
 	}
 
-	// modifications to the container dir
-	err = finishUpRootBin(envPath)
+	// // modifications to the container dir. (add resolve.conf)
+	// err = finishUpRootBin(envPath)
 
 	return
 }
