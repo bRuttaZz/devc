@@ -8,6 +8,8 @@ import (
 	"github.com/bruttazz/devc/internal/configs"
 )
 
+var version string = ""
+
 func main() {
 	defer func() {
 		if v := recover(); v != nil {
@@ -16,5 +18,6 @@ func main() {
 		}
 	}()
 	configs.LoadConfig()
+	configs.Config.Version = version
 	cmd.Execute()
 }

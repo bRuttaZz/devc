@@ -1,5 +1,3 @@
-# devc version
-version: v1.0.0
 
 # cache directory used by devc
 cache-dir: ".cache/devc"

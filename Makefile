@@ -1,6 +1,11 @@
+INSTALL_PATH = /usr/local/bin
+ARCH=amd64
 
-run: devc.go go.mod
-	- @go run devc.go build build
+VERSION:=$(shell cat VERSION | tr -d ' ') 
 
-build: devc.go cmd internal go.mod 
-	- @go build -o build/devc 
+compile: devc.go cmd internal go.mod 
+	- @echo "[devc] compiling for : $(VERSION)."
+	- GOOS=linux GOARCH=$(ARCH) go build -v -o "devc-$(strip $(VERSION))-linux-$(strip $(ARCH))" -ldflags="-s -w -X main.version=$(VERSION)"
+
+install: devc
+	- sudo cp devc $(INSTALL_PATH)/devc
