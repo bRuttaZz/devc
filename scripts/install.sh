@@ -15,14 +15,14 @@ The script:\n
 - Installs the latest stable release (by default) of devc, buildah, and runc.\n
 - Isn't designed to upgrade an existing devc installation. 
 \n
-Source code is available at https://github.com/bRuttaZz/devc/blob/main/install.sh\n
+Source code is available at https://github.com/bRuttaZz/devc/blob/main/scripts/install.sh\n
 \n
 \n
 USAGE\n
 =====
 To install the latest stable versions of devc, and its dependencies: \n
 1. download the script\n
-  \t$ curl -fsSL https://raw.githubusercontent.com/bRuttaZz/devc/main/install.sh -o install-devc.sh\n
+  \t$ curl -fsSL https://raw.githubusercontent.com/bRuttaZz/devc/main/scripts/install.sh -o install-devc.sh\n
 2. verify the script's content\n
   \t$ cat install-devc.sh\n
 3. run the script with --dry-run to verify the steps it executes\n
