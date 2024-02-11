@@ -31,10 +31,11 @@ jobs:
       if: steps.build.outputs.exit_code == 0
 
     - name: "Test"
+      # only testing amd64 and 386 builds, as the github machine do not support others
       run: | 
         set -e
         sudo apt-get install -y buildah
-        for exe in devc-v* ; do echo -e "\nTesting $exe"; if ! ./$exe --version ; then echo "Error executing : $exe" ; exit 1; fi; done ;
+        for exe in devc-v*amd64 devc-v*386 ; do echo -e "\nTesting $exe"; if ! ./$exe --version ; then echo "Error executing : $exe" ; exit 1; fi; done ;
       working-directory: "."
       if: steps.build.outputs.exit_code == 0
 
