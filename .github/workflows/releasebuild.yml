@@ -39,11 +39,56 @@ jobs:
       working-directory: "."
       if: steps.build.outputs.exit_code == 0
 
-    - uses: "marvinpinto/action-automatic-releases@latest"
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        tag_name: ${{ github.ref }}
+        release_name: ${{ github.ref }}
+        draft: false
         prerelease: false
-        files: |
-          LICENSE
-          devc-v*
-      if: steps.build.outputs.exit_code == 0
+    - name: Upload Release Asset 386
+      id: upload-release-asset-386 
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        asset_path: ./devc-v*-386
+        asset_name: devc-linux-386
+        asset_content_type: binary/octet-stream
+
+    - name: Upload Release Asset amd64
+      id: upload-release-asset-amd64
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        asset_path: ./devc-v*-amd64
+        asset_name: devc-linux-amd64
+        asset_content_type: binary/octet-stream
+
+    - name: Upload Release Asset arm
+      id: upload-release-asset-arm
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        asset_path: ./devc-v*-arm
+        asset_name: devc-linux-arm
+        asset_content_type: binary/octet-stream
+
+    - name: Upload Release Asset arm64
+      id: upload-release-asset-arm64
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+        asset_path: ./devc-v*-arm64
+        asset_name: devc-linux-arm64
+        asset_content_type: binary/octet-stream
