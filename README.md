@@ -2,7 +2,7 @@
 
 <a href="./assets/LICENSE.md" title="Logo by Dev G"><img src="./assets/tad.png" width=150 alt="Logo by Dev G"/></a>
 
-Containers For Developers (Container as a Folder)
+**Containers For Developers (Container as a Folder)**
 
 ![Workflow status](https://github.com/bruttazz/devc/actions/workflows/codeql.yml/badge.svg)
 [![Go Report Card](https://goreportcard.com/badge/github.com/bruttazz/devc)](https://goreportcard.com/report/github.com/bruttazz/devc)
@@ -11,6 +11,18 @@ Containers For Developers (Container as a Folder)
 [![Release](https://img.shields.io/github/release/bruttazz/devc.svg?style=flat-square)](https://github.com/bruttazz/devc/releases/latest)
 
 ---
+
+<details> 
+<summary><b>Quick Links</b></summary>
+
+1. [Intro](#intro)
+2. [Usage](#usage)
+3. [Installation](#installation)
+4. [Credits](#credits)
+
+</details>
+
+Detailed (I mean semi-detailed) [CLI usage manual](./misc/man.md), and [release notes](./misc/CHANGELOG.md).
 
 ## Intro
 
@@ -141,14 +153,13 @@ sudo rm /etc/bash_completion.d/devc-complete
 ```
 In addition devc may have installed `buildah` and it's dependencies. You can simply remove it using your distribution's package manager (apt uninstall, dnf remove, etc..)
 
-## TODOs
-* Integration of buildah as a go lib (optional :) 
-<!-- * logger addition -->
-* packaging (deb, rpm, AppImage) and bash completion
 
-<br><br>
-
-**Credits**
+## Credits
 * Logo : [Dev G](https://www.instagram.com/dev.g.__)
 * [Proot](https://github.com/proot-me/proot)
 * [Buildah](https://github.com/containers/buildah) 
+
+## TODOs
+* Integration of buildah as a go lib (optional :) 
+* packaging (deb, rpm, AppImage) and bash completion
+<!-- * logger addition -->
