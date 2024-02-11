@@ -205,7 +205,7 @@ get_shc() {
 	if is_dry_run; then
 		sh_c="echo"
 	fi
-	printf $sh_c
+	echo $sh_c
 }
 
 get_arch() {
@@ -425,19 +425,22 @@ install_devc() {
 	fi
 	if is_dry_run ; then
 		executer="echo"
+	else
+		executer="sh -c"
 	fi
-	sh_c=$(get_shc)
-	$executer wget -O devc "$url";
-	$executer chmod a+x ./devc ;
+	sh_c=$( get_shc )
+
+	$executer "wget -O devc $url";
+	$executer "chmod a+x ./devc" ;
+	echo "# seting up path.."
 	$sh_c "cp ./devc $BIN_PATH/devc" ;
 
 	# generate completion script for bash if bash_completion.d exists
 	if [ -d /etc/bash_completion.d ]; then
+		echo "# setting up bash autocompletion.."
 		$sh_c "./devc completion bash > /etc/bash_completion.d/devc-complete"
 	fi
-	{ 
-		$executer rm ./devc 
-	} || {}
+	$executer "rm ./devc" 
 	echo -e "# [devc] Installation successfull!
 #\tTry executing 'devc --version' to verify the installation or 'devc --help' for more info."
 }

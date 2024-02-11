@@ -4,7 +4,7 @@ import (
 	"os/user"
 	"path/filepath"
 
-	"github.com/gobuffalo/packr"
+	"github.com/bruttazz/devc/config"
 	"gopkg.in/yaml.v2"
 )
 
@@ -42,11 +42,7 @@ type ConfigStruct struct {
 }
 
 func LoadConfig() {
-	dat, err := packr.NewBox("../../configs").FindString("general.yml")
-	if err != nil {
-		panic("error loading devc config : " + err.Error())
-	}
-	if err := yaml.Unmarshal([]byte(dat), &Config); err != nil {
+	if err := yaml.Unmarshal(config.General, &Config); err != nil {
 		panic("error parsing devc config : " + err.Error())
 	}
 

@@ -9,3 +9,6 @@ compile: devc.go cmd internal go.mod VERSION
 
 install: devc-v*$(ARCH)
 	- sudo cp devc-v*$(ARCH) $(INSTALL_PATH)/devc
+
+update:	go.mod go.sum
+	- @go mod tidy
