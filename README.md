@@ -12,15 +12,17 @@
 
 ---
 
-<details> 
-<summary><b>Quick Links</b></summary>
+<!-- <details>  -->
+<!-- <summary><b>Quick Links</b></summary> -->
+
+## Quick Links
 
 1. [Intro](#intro)
 2. [Usage](#usage)
 3. [Installation](#installation)
 4. [Credits](#credits)
 
-</details>
+<!-- </details> -->
 
 Detailed (I mean semi-detailed) [CLI usage manual](./misc/man.md), and [release notes](./misc/CHANGELOG.md).
 
