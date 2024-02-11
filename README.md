@@ -135,12 +135,16 @@ You can simply executing the following to remove the devc binary from your path
 ```sh
 sudo rm $(which devc)  
 ```
+Incase your system have bash installed, devc installation script will add a bash completion tool as well. To remove that execute 
+```sh
+sudo rm /etc/bash_completion.d/devc-complete
+```
 In addition devc may have installed `buildah` and it's dependencies. You can simply remove it using your distribution's package manager (apt uninstall, dnf remove, etc..)
 
 ## TODOs
 * Integration of buildah as a go lib (optional :) 
-* logger addition
-* packaging (deb, rpm)
+<!-- * logger addition -->
+* packaging (deb, rpm, AppImage) and bash completion
 
 <br><br>
 

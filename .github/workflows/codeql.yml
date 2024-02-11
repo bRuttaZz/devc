@@ -78,7 +78,7 @@ jobs:
     - name: build
       run: |
         echo "Building devc"
-        go build .
+        make 
       working-directory: "."
 
     - name: Perform CodeQL Analysis

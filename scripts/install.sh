@@ -421,14 +421,23 @@ install_devc() {
 	if [ -z $url ]; then
 		echo -e "#\n# [ERROR] unable to find devc binary compiled for your system from the latest release.
 # Consider installing from source :)"
-		exit 1
+		# exit 1
 	fi
 	if is_dry_run ; then
 		executer="echo"
 	fi
+	sh_c=$(get_shc)
 	$executer wget -O devc "$url";
-	$executer "chmod a+x ./devc" ;
-	$(get_shc) "cp ./devc $BIN_PATH/devc" ;
+	$executer chmod a+x ./devc ;
+	$sh_c "cp ./devc $BIN_PATH/devc" ;
+
+	# generate completion script for bash if bash_completion.d exists
+	if [ -d /etc/bash_completion.d ]; then
+		$sh_c "./devc completion bash > /etc/bash_completion.d/devc-complete"
+	fi
+	{ 
+		$executer rm ./devc 
+	} || {}
 	echo -e "# [devc] Installation successfull!
 #\tTry executing 'devc --version' to verify the installation or 'devc --help' for more info."
 }

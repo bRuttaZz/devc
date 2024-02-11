@@ -15,9 +15,10 @@ var rootCmd = &cobra.Command{
 	Use:   "devc",
 	Short: "Containers for Developers (Container as a Directory)",
 	Long: `devc: Containers for Developers (Container as a Directory)!
-Provides with a developer friendly interface to build your application with containers!
-Create easy to use virtual-environments from Containerfiles or container images, activate it, 
-develop using it, make changes to it and reuse it. 
+Offers developers a user-friendly interface for constructing applications
+using containers! Generate effortlessly usable virtual environments from
+Dockerfiles, other Containerfiles or container images, activate them, 
+engage in development, implement changes, and reuse seamlessly.
 `,
 	Run: func(cmd *cobra.Command, args []string) {
 		if roomCmdOptions.Version {
