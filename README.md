@@ -73,7 +73,7 @@ devc pull <image-name> <env-name>
 where `image-name` represents the name of the image to be pulled, it can also contain version tag and registry names.
 `env-name` will be the name of your new devc environment. It's going to create a directory with the exact name in your current workspace.
 
-eg: to create a simple python devc env, one can execute `devc pull python env` it will create a new directory called `env`, with docker image pulled from any of the default container registry configured on your system. If you want to specify the registry and version tag on pulling, execute something like `devc pull docker.io/library/python:3.12-bookworm env`.
+eg: to create a simple python devc env, one can execute `devc pull alpine env` it will create a new directory called `env`, with docker image pulled from any of the default container registry configured on your system. If you want to specify the registry and version tag on pulling, execute something like `devc pull docker.io/library/python:3.12-alpine env`.
 
 #### 1.2 Creating a devc env from Dockerfile/Containerfile
 Navigate into the directory of having your Dockerfile / Containerfile and execute the following to build and create a new devc container env
@@ -161,7 +161,13 @@ In addition devc may have installed `buildah` and it's dependencies. You can sim
 * [Proot](https://github.com/proot-me/proot)
 * [Buildah](https://github.com/containers/buildah) 
 
+## Known Issues
+* Currently there is some problem regarding issuing apt update in ubuntu/deb based images
+* Some mount points has to be refined. Think some of them are useless at times. (It's hard to generalize between different distros)
+
 ## TODOs
 * Integration of buildah as a go lib (optional :) 
 * packaging (deb, rpm, AppImage) and bash completion
 <!-- * logger addition -->
+
+**Plan to be a contributor? You are welcome :)**

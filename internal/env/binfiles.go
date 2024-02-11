@@ -51,6 +51,7 @@ echo "export PS1=\"${PS1}\"" > "$_DIR_NAME/.rc";
     -b /sys \
     -b /etc/host.conf \
     -b /etc/hosts \
+	-b /ete/hostname \
     -b /etc/nsswitch.conf \
     -b /etc/resolv.conf \
     -b /tmp/ \
