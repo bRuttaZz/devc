@@ -166,7 +166,7 @@ func Login(opts *configs.LoginCmdOptions, args []string) {
 	if err != nil {
 		panic("[login error] : " + err.Error())
 	}
-	fmt.Printf("[devc login] successfully loged into \"%v\"\n", args[0])
+	fmt.Printf("[devc login] successfully logged into \"%v\"\n", args[0])
 }
 
 // logout from registry

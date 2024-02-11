@@ -11,7 +11,7 @@ var activateOptions configs.ActivateCmdOptions
 var activateCmd = &cobra.Command{
 	Use:   "activate env-name",
 	Short: "activate a devc env",
-	Long: `activate a devc environement. 
+	Long: `activate a devc environment. 
 One can also enable the env by executing "source <env-name>/bin/activate".
 On activating the env, it will automatically mount the current working
 dir to an unused directory (/devc) inside the environment`,

@@ -10,8 +10,8 @@ var logoutOptions configs.LogoutCmdOptions
 
 var logoutCmd = &cobra.Command{
 	Use:   "logout registry-uri",
-	Short: "logout from a previously loged in registry",
-	Long:  `logout from a previosuly logged in registries using "devc login".`,
+	Short: "logout from a previously logged in registry",
+	Long:  `logout from a previously logged in registries using "devc login".`,
 	Run: func(cmd *cobra.Command, args []string) {
 		builder.Logout(&logoutOptions, args)
 	},

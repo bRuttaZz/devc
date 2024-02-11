@@ -96,14 +96,16 @@ deprecation_notice() {
 	distro=$1
 	distro_version=$2
 	echo
-	printf "\033[91;1mDEPRECATION WARNING\033[0m\n"
-	printf "    This Linux distribution (\033[1m%s %s\033[0m) reached end-of-life and is no longer supported by this script.\n" "$distro" "$distro_version"
-	echo   "    No updates or security fixes will be released for this distribution, and users are recommended"
-	echo   "    to upgrade to a currently maintained version of $distro."
+	printf "# \033[91;1mDEPRECATION WARNING\033[0m\n"
+	printf "#    This Linux distribution (\033[1m%s %s\033[0m) reached end-of-life and is no longer supported by this script.\n" "$distro" "$distro_version"
+	echo   "#    No updates or security fixes will be released for this distribution, and users are recommended"
+	echo   "#    to upgrade to a currently maintained version of $distro."
+	echo   "#"
+	printf   "# Press \033[1mCtrl+C\033[0m now to abort this script, or wait for the installation to continue."
 	echo
-	printf   "Press \033[1mCtrl+C\033[0m now to abort this script, or wait for the installation to continue."
-	echo
-	sleep 10
+	if ! is_dry_run; then
+		sleep 10
+	fi
 }
 
 get_distribution() {
@@ -177,8 +179,8 @@ check_forked() {
 
 # require to install depends and exit
 require_installation() {
-	echo -e "\nERROR [devc] : dependecy installation failed for '$1'.
-	Kindly install the dependecies and try again with the script!"
+	echo -e "#\n# ERROR [devc] : dependecy installation failed for '$1'.
+	# Kindly install the dependecies and try again with the script!"
 	exit 1
 }
 
@@ -192,8 +194,9 @@ get_shc() {
 			sh_c='su -c'
 		else
 			cat >&2 <<-'EOF'
-			Error: this installer needs the ability to run commands as root.
-			We are unable to find either "sudo" or "su" available to make this happen.
+			#
+			# [ERROR] this installer needs the ability to run commands as root.
+			# We are unable to find either "sudo" or "su" available to make this happen.
 			EOF
 			exit 1
 		fi
@@ -229,12 +232,14 @@ install_dependencies() {
 
 	if command_exists devc; then
 		cat >&2 <<-'EOF'
-			Warning: the "devc" command appears to already exist on this system.
-
-            Trying to REINSTALL devc.
-			You may press Ctrl+C now to abort this script.
+			# Warning: the "devc" command appears to already exist on this system.
+#
+#           Trying to REINSTALL devc.
+			# You may press Ctrl+C now to abort this script.
 		EOF
-		( set -x; sleep 20 )
+		if ! is_dry_run; then
+			( set -x; sleep 10 )
+		fi;
 	fi
 
 	sh_c=$( get_shc )
@@ -244,15 +249,17 @@ install_dependencies() {
 
 	if is_wsl; then
 		echo
-		echo "WSL DETECTED: Think like you are trying to install devc inside windows."
-		echo "This setup is not properly tested out. Forward with caution! "
-        echo "I mean the installation may break :)"
+		echo "# WSL DETECTED: Think like you are trying to install devc inside windows."
+		echo "# This setup is not properly tested out. Forward with caution! "
+        echo "# I mean the installation may break :)"
 		echo
 		cat >&2 <<-'EOF'
-
-			You may press Ctrl+C now to abort this script.
+			
+			# You may press Ctrl+C now to abort this script.
 		EOF
-		( set -x; sleep 20 )
+		if ! is_dry_run; then
+			( set -x; sleep 20 )
+		fi
 	fi
 
 
@@ -384,15 +391,15 @@ install_dependencies() {
 					}
 				elif [ -z "$lsb_dist" ]; then
 					if is_darwin; then
-						echo
-						echo "ERROR: Unsupported operating system 'macOS'"
-						echo "Sorry FOLKS :)"
-						echo
+						echo "#"
+						echo "# ERROR: Unsupported operating system 'macOS'"
+						echo "# Sorry FOLKS :)"
+						echo 
 						exit 1
 					fi
 				else 
-					echo
-					echo "ERROR: Unsupported distribution '$lsb_dist'"
+					echo "#"
+					echo "# [ERROR]: Unsupported distribution '$lsb_dist'"
 					echo
 					exit 1
 				fi
@@ -411,7 +418,11 @@ install_devc() {
 		| grep -i "devc.*$(get_arch)" \
 		| cut -d : -f 2,3 \
 		| tr -d \" )
-	
+	if [ -z $url ]; then
+		echo -e "#\n# [ERROR] unable to find devc binary compiled for your system from the latest release.
+# Consider installing from source :)"
+		exit 1
+	fi
 	if is_dry_run ; then
 		executer="echo"
 	fi
@@ -423,7 +434,7 @@ install_devc() {
 }
 
 do_install() {
-	echo "# Executing devc install script"
+	echo "# [ Executing devc install script ]"
 	install_dependencies
 	install_devc
 }
