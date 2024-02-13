@@ -34,8 +34,5 @@ type PullCmdOptions struct {
 	NoCaching bool
 }
 
-type RmCmdOptions struct {
-}
-
 type RmiCmdOptions struct {
 }

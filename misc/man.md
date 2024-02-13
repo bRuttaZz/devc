@@ -23,7 +23,6 @@ Offers developers a user-friendly interface for constructing applications using 
   * `logout`      :logout from a previously * logged in registry
   * `prune`       :prune all the cached images.
   * `pull`        :build a devc env directly from a container image
-  * `rm`          :remove a devc environment
   * `rmi`         :remove a cached image
 
 
@@ -58,7 +57,7 @@ Containerfile or Dockerfile is present.
 * `-c`, `--context`: [string]             Specify the build context to be used (default ".")
 * `-f`, `--file`: [string]                Explicitly point to a container file (can also provide valid urls)
 * `-h`, `--help`: help for build
-* `--keep-cache` : Keep build cache after successful build of devc environment. By default the build-cache will not be stored. **NB** : if a devc env is created using `--keep-cache` flag, try to use `devc rm <env-name>` to remove the env after use.
+* `--keep-cache` : Keep build cache after successful build of devc environment. By default the build-cache will not be stored. 
 
 ### images
 **Show all the cache images.** 
@@ -119,17 +118,6 @@ available registries. One can add new registries by executing `devc login`
 **Flags**:
   * `-h`, `--help` :  help for pull
     * `--rm` :     Do not create local image cache, after building devc environment
-
-### rm
-**remove the specified devc environment.** 
-
-Can be used if it's not able to remove the directory otherwise, or you have issued special flags like `--keep-cache` on building the devc env.
-
-**Usage**:
-  * `devc rm env-name [flags]`
-
-**Flags**:
-  * `-h`, `--help` :   help for rm
 
 ### rmi
 **remove a cached image by id**

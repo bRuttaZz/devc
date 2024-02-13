@@ -1,7 +1,7 @@
 package builder
 
 import (
-	"fmt"
+	// "fmt"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -24,16 +24,9 @@ func runCommand(name string, cmd []string) (err error) {
 }
 
 // provide global options for buildah
-// args:
-//
-//	envPath - env path
-func getGlobalBuildahOptions(abs, envPath string) (cmd []string) {
+func getGlobalBuildahOptions() (cmd []string) {
 	var rootPath string
-	if len(envPath) > 0 {
-		rootPath = filepath.Join(abs, envPath, configs.Config.EnvSettings.BuildDir)
-	} else {
-		rootPath = filepath.Join(configs.Config.CacheDir, configs.Config.CacheDirSettings.BuildahCache)
-	}
+	rootPath = filepath.Join(configs.Config.CacheDir, configs.Config.CacheDirSettings.BuildahCache)
 	cmd = []string{
 		"--root",
 		rootPath,
@@ -55,25 +48,26 @@ func getAuthFileOptions() (cmd []string, err error) {
 }
 
 // get bulid command options
-// args:
-//
-//	envPath - env path
-func getBuildOptions(abs, envPath string) (cmd []string) {
+func getBuildOptions() (imageName string, cmd []string, err error) {
+	var authFileOptions []string
+	authFileOptions, err = getAuthFileOptions()
+	imageName = utils.CreateRandomString()
 	cmd = []string{
 		"build",
+		"--force-rm",
 		"--rm",
 		"--layers=false",
-		fmt.Sprintf(
-			"--output=type=local,dest=%v",
-			filepath.Join(abs, envPath, configs.Config.EnvSettings.RootDir),
-		),
+		"--tag",
+		imageName,
+		authFileOptions[0],
+		authFileOptions[1],
 	}
 	return
 }
 
 // garbage collection
-func clearBuildCache(envPath string) (err error) {
-	var options = getGlobalBuildahOptions("", envPath)
+func clearBuildCache() (err error) {
+	var options = getGlobalBuildahOptions()
 	options = append(options, "prune")
 	options = append(options, "-af")
 	err = runCommand(configs.Config.Buildah.Path, options)

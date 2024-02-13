@@ -20,7 +20,9 @@
 1. [Intro](#intro)
 2. [Usage](#usage)
 3. [Installation](#installation)
-4. [Credits](#credits)
+4. [Uninstalling](#uninstalling)
+5. [Known Issues](#known-issues)
+6. [Credits](#credits)
 
 <!-- </details> -->
 
@@ -99,7 +101,7 @@ If everything went well, your terminal prompt will be prefixed with `(devc)` (th
 Again simple, as devc is not running any demon processes, one can execute `deactivate` to deactivate the session, or `ctrl + d` combo to quit the terminal.
 
 ### 4. Removing the venv
-**In a normal usecase one can simply delete the env directory** from the UI after use. If you are using some advanced features on devc at env creation time, you may have to look into the `devc rm` command. refer the [manual](./misc/man.md)
+**In a normal usecase one can simply delete the env directory** from the UI after use (yeah for the CLI people, you got `rm -r` option as well).
 
 ## Installation
 
@@ -162,7 +164,7 @@ In addition devc may have installed `buildah` and it's dependencies. You can sim
 * [Buildah](https://github.com/containers/buildah) 
 
 ## Known Issues
-* Currently there is some problem regarding issuing apt update in ubuntu/deb based images
+* Currently there is some problem regarding issuing apt update in ubuntu/deb based images (gpg key update related issues)
 * Some mount points has to be refined. Think some of them are useless at times. (It's hard to generalize between different distros)
 
 ## TODOs

@@ -11,8 +11,10 @@ import (
 const activateString string = `
 _DIR_NAME=%v
 # deactivate other venv if exists
-type deactivate &>/dev/null && deactivate
-
+type deactivate &>/dev/null && {
+    echo "[ERROR] error activating devc (an env is already present). Retry after deactivating the current env!";
+    exit 1;
+}
 # setup for proot
 _OLD_PATH=$PATH
 _OLD_PS1=$PS1
@@ -49,12 +51,12 @@ echo "export PS1=\"${PS1}\"" > "$_DIR_NAME/.rc";
 	-b /dev \
     -b /proc \
     -b /sys \
+    -b /tmp \
     -b /etc/host.conf \
     -b /etc/hosts \
-	-b /ete/hostname \
+	-b /etc/hostname \
     -b /etc/nsswitch.conf \
     -b /etc/resolv.conf \
-    -b /tmp/ \
     "$SHELL" ;
 
 rm "$_DIR_NAME/.rc";

@@ -42,7 +42,6 @@ func init() {
 	rootCmd.AddCommand(loginCmd)
 	rootCmd.AddCommand(logoutCmd)
 	rootCmd.AddCommand(imagesCmd)
-	rootCmd.AddCommand(rmCmd)
 	rootCmd.AddCommand(rmiCmd)
 	rootCmd.AddCommand(pullCmd)
 	rootCmd.AddCommand(pruneCmd)

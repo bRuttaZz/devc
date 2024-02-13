@@ -20,38 +20,51 @@ func Builder(opts *configs.BuildCmdOptions, args []string) {
 	if err != nil {
 		panic("[build error] error resolve path : " + err.Error())
 	}
-	var baseOptions = append(getGlobalBuildahOptions(abs, args[0]), getBuildOptions(abs, args[0])...)
-	authFileOpts, err := getAuthFileOptions()
-	if err != nil {
-		panic("[devc error] : " + err.Error())
+	_, err = os.Stat(filepath.Join(abs, args[0]))
+	if err == nil {
+		panic("[ERROR] directory already exists! '" + args[0] + "'")
 	}
-	baseOptions = append(baseOptions, authFileOpts...)
+	var globalOptions = getGlobalBuildahOptions()
+	imgName, buildOptions, err := getBuildOptions()
+	if err != nil {
+		panic("[devc error] getting builder options : " + err.Error())
+	}
+	buildOptions = append(globalOptions, buildOptions...)
 	for i := 0; i < len(opts.BuildArgs); i++ {
-		baseOptions = append(baseOptions, []string{"--build-arg", opts.BuildArgs[i]}...)
+		buildOptions = append(buildOptions, []string{"--build-arg", opts.BuildArgs[i]}...)
 	}
 
 	if len(opts.Containerfile) > 0 {
-		baseOptions = append(baseOptions, "--file")
-		baseOptions = append(baseOptions, filepath.Join(abs, opts.Containerfile))
+		buildOptions = append(buildOptions, "--file")
+		buildOptions = append(buildOptions, filepath.Join(abs, opts.Containerfile))
 	}
-	baseOptions = append(baseOptions, filepath.Join(abs, opts.Context))
+	buildOptions = append(buildOptions, filepath.Join(abs, opts.Context))
 
-	// fmt.Println("options", buildCmd.Path, buildCmd.Args)
-	err = runCommand(configs.Config.Buildah.Path, baseOptions)
+	fmt.Println("[devc] building container..")
+	err = runCommand(configs.Config.Buildah.Path, buildOptions)
 	if err != nil {
-		panic("[builder error] : " + err.Error())
+		panic("[builder error] stage 1 : " + err.Error())
 	}
-	fmt.Println("[devc] container created")
+	fmt.Println("[devc] image created..")
+	fmt.Println("[devc] creating devc env ")
+
+	err = exportImageAsRootFs(imgName, filepath.Join(abs, args[0], configs.Config.EnvSettings.RootDir))
+	if err != nil {
+		panic("[devc] mount error : " + err.Error())
+	}
+
 	err = env.SetupEnv(filepath.Join(abs, args[0]))
 	if err != nil {
 		panic("[setup error] : " + err.Error())
 	}
 	fmt.Printf("[devc] env created : %v\n", args[0])
 	if !opts.KeepCache {
-		err = clearBuildCache(args[0])
-		if err != nil {
-			panic("[finishup error] : " + err.Error())
-		}
+		defer func() {
+			if v := recover(); v != nil {
+				panic(fmt.Sprint("[finishup error] : ", v))
+			}
+		}()
+		Rmi(&configs.RmiCmdOptions{}, []string{imgName})
 	}
 	fmt.Printf("\n[devc] tada! the env is all yours : [%v]\n", args[0])
 }
@@ -82,58 +95,35 @@ func Activate(opts *configs.ActivateCmdOptions, args []string) {
 
 // pull images and create env
 func Pull(opts *configs.PullCmdOptions, args []string) {
-	if len(args) != 2 {
-		panic("Invalid number of positional argument. Execute command with --help to get detailed usecase")
-	}
-	file, err := os.CreateTemp("", "pullcmd")
-	if err != nil {
-		panic("[pull error] : " + err.Error())
-	}
-	defer file.Close()
-	defer os.Remove(file.Name())
-	_, err = file.Write([]byte(fmt.Sprintf("FROM %v", args[0])))
-	if err != nil {
-		panic("[pull error] : " + err.Error())
-	}
 
 	abs, err := filepath.Abs("")
 	if err != nil {
 		panic("[pull error] error resolve path : " + err.Error())
 	}
-
-	var baseOptions = append(getGlobalBuildahOptions("", ""), getBuildOptions(abs, args[1])...)
-	authFileOpts, err := getAuthFileOptions()
-	if err != nil {
-		panic("[devc error] : " + err.Error())
+	_, err = os.Stat(filepath.Join(abs, args[1]))
+	if err == nil {
+		panic("[ERROR] directory already exists! '" + args[1] + "'")
 	}
-	baseOptions = append(baseOptions, authFileOpts...)
-
-	baseOptions = append(baseOptions, "--file")
-	baseOptions = append(baseOptions, file.Name())
-	baseOptions = append(baseOptions, ".")
-
-	// fmt.Println("options", buildCmd.Path, buildCmd.Args)
-	err = runCommand(configs.Config.Buildah.Path, baseOptions)
+	err = exportImageAsRootFs(args[0], filepath.Join(abs, args[1], configs.Config.EnvSettings.RootDir))
 	if err != nil {
-		panic("[pull error] : " + err.Error())
+		panic("[devc] mount error : " + err.Error())
 	}
-	fmt.Println("[devc] container created..")
+
 	err = env.SetupEnv(filepath.Join(abs, args[1]))
 	if err != nil {
 		panic("[setup error] : " + err.Error())
 	}
+	fmt.Printf("[devc] env created : %v\n", args[1])
 	if opts.NoCaching {
-		baseOptions = getGlobalBuildahOptions("", "")
-		baseOptions = append(baseOptions, "rmi")
-		baseOptions = append(baseOptions, args[0])
-
-		err := runCommand(configs.Config.Buildah.Path, baseOptions)
-		if err != nil {
-			panic("[devc cleanup error] : " + err.Error())
-		}
-		fmt.Println("[devc] pull cache removed..")
+		defer func() {
+			if v := recover(); v != nil {
+				panic(fmt.Sprint("[finishup error] : ", v))
+			}
+		}()
+		Rmi(&configs.RmiCmdOptions{}, []string{args[0]})
 	}
 	fmt.Printf("\n[devc] tada! the env is all yours : [%v]\n", args[1])
+
 }
 
 // login to a registry
@@ -141,7 +131,7 @@ func Login(opts *configs.LoginCmdOptions, args []string) {
 	if len(args) != 1 {
 		panic("Invalid number of positional argument. Execute command with --help to get detailed usecase")
 	}
-	var baseOptions = getGlobalBuildahOptions("", "")
+	var baseOptions = getGlobalBuildahOptions()
 	baseOptions = append(baseOptions, "login")
 	authFileOpts, err := getAuthFileOptions()
 	if err != nil {
@@ -174,7 +164,7 @@ func Logout(opts *configs.LogoutCmdOptions, args []string) {
 	if len(args) != 1 {
 		panic("Invalid number of positional argument. Execute command with --help to get detailed usecase")
 	}
-	var baseOptions = getGlobalBuildahOptions("", "")
+	var baseOptions = getGlobalBuildahOptions()
 	baseOptions = append(baseOptions, "logout")
 	authFileOpts, err := getAuthFileOptions()
 	if err != nil {
@@ -196,7 +186,7 @@ func Images(opts *configs.ImagesCmdOptions, args []string) {
 		panic("Invalid number of positional argument. Execute command with --help to get detailed usecase")
 	}
 
-	var baseOptions = getGlobalBuildahOptions("", "")
+	var baseOptions = getGlobalBuildahOptions()
 	baseOptions = append(baseOptions, "images")
 	// fmt.Println("options", buildCmd.Path, buildCmd.Args)
 	err := runCommand(configs.Config.Buildah.Path, baseOptions)
@@ -210,7 +200,7 @@ func Prune(opts *configs.PruneCmdOptions, args []string) {
 	if len(args) != 0 {
 		panic("Invalid number of positional argument. Execute command with --help to get detailed usecase")
 	}
-	err := clearBuildCache("")
+	err := clearBuildCache()
 	if err != nil {
 		panic("[devc prune error] : " + err.Error())
 	}
@@ -221,33 +211,12 @@ func Prune(opts *configs.PruneCmdOptions, args []string) {
 	fmt.Println("[devc] system prune complete!")
 }
 
-// Remove an existing devc env (simply deleting it will also work)
-func Rm(opts *configs.RmCmdOptions, args []string) {
-	if len(args) != 1 {
-		panic("Invalid number of positional argument. Execute command with --help to get detailed usecase")
-	}
-	// check if it's a valid env
-	_, err := os.Stat(filepath.Join(args[0], configs.Config.EnvSettings.DevcBin, "activate"))
-	if err != nil {
-		panic("[devc rm error] : seems not to be a devc environment")
-	}
-	err = clearBuildCache(args[0])
-	if err != nil {
-		panic("[devc rm error] : " + err.Error())
-	}
-	err = runCommand("rm", []string{"-rf", args[0]})
-	if err != nil {
-		panic("[devc rm error] : " + err.Error())
-	}
-	fmt.Println("[devc] env removed successfully!")
-}
-
 // Remove a cached image (cache is only applicable for devc pull command)
 func Rmi(opts *configs.RmiCmdOptions, args []string) {
 	if len(args) != 1 {
 		panic("Invalid number of positional argument. Execute command with --help to get detailed usecase")
 	}
-	options := getGlobalBuildahOptions("", "")
+	options := getGlobalBuildahOptions()
 	options = append(options, "rmi")
 	options = append(options, args[0])
 
