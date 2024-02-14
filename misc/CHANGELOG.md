@@ -14,6 +14,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 
+## [v1.1.1] - 2024-02-14
+**Compatibility improvements! Resolution in issues with buildah in ubuntu**
+
+### Added
+- Independent build cache handling for devc
+### Changed
+- Removed the usage of `prune` from buildah. The latest `prune` functionality is implemented using `rmi` flags.
+### Fixed
+- Support for prune command in devc (now works with older versions)
+
+
 
 ## [v1.1.0] - 2024-02-14
 **Build and Pull based on more stable methods provided by buildah. Removed unnecessary caching on the front end and more.. Now support older versions of buildah as well.**

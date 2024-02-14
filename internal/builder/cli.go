@@ -24,7 +24,7 @@ func Builder(opts *configs.BuildCmdOptions, args []string) {
 	if err == nil {
 		panic("[ERROR] directory already exists! '" + args[0] + "'")
 	}
-	var globalOptions = getGlobalBuildahOptions()
+	var globalOptions = getGlobalBuildahOptions(args[0])
 	imgName, buildOptions, err := getBuildOptions()
 	if err != nil {
 		panic("[devc error] getting builder options : " + err.Error())
@@ -48,7 +48,7 @@ func Builder(opts *configs.BuildCmdOptions, args []string) {
 	fmt.Println("[devc] image created..")
 	fmt.Println("[devc] creating devc env ")
 
-	err = exportImageAsRootFs(imgName, filepath.Join(abs, args[0], configs.Config.EnvSettings.RootDir))
+	err = exportImageAsRootFs(imgName, filepath.Join(abs, args[0]))
 	if err != nil {
 		panic("[devc] mount error : " + err.Error())
 	}
@@ -95,6 +95,9 @@ func Activate(opts *configs.ActivateCmdOptions, args []string) {
 
 // pull images and create env
 func Pull(opts *configs.PullCmdOptions, args []string) {
+	if len(args) != 2 {
+		panic("Invalid number of positional argument. Execute command with --help to get detailed usecase")
+	}
 
 	abs, err := filepath.Abs("")
 	if err != nil {
@@ -104,7 +107,7 @@ func Pull(opts *configs.PullCmdOptions, args []string) {
 	if err == nil {
 		panic("[ERROR] directory already exists! '" + args[1] + "'")
 	}
-	err = exportImageAsRootFs(args[0], filepath.Join(abs, args[1], configs.Config.EnvSettings.RootDir))
+	err = exportImageAsRootFs(args[0], filepath.Join(abs, args[1]))
 	if err != nil {
 		panic("[devc] mount error : " + err.Error())
 	}
@@ -131,7 +134,7 @@ func Login(opts *configs.LoginCmdOptions, args []string) {
 	if len(args) != 1 {
 		panic("Invalid number of positional argument. Execute command with --help to get detailed usecase")
 	}
-	var baseOptions = getGlobalBuildahOptions()
+	var baseOptions = getGlobalBuildahOptions("")
 	baseOptions = append(baseOptions, "login")
 	authFileOpts, err := getAuthFileOptions()
 	if err != nil {
@@ -164,7 +167,7 @@ func Logout(opts *configs.LogoutCmdOptions, args []string) {
 	if len(args) != 1 {
 		panic("Invalid number of positional argument. Execute command with --help to get detailed usecase")
 	}
-	var baseOptions = getGlobalBuildahOptions()
+	var baseOptions = getGlobalBuildahOptions("")
 	baseOptions = append(baseOptions, "logout")
 	authFileOpts, err := getAuthFileOptions()
 	if err != nil {
@@ -186,7 +189,7 @@ func Images(opts *configs.ImagesCmdOptions, args []string) {
 		panic("Invalid number of positional argument. Execute command with --help to get detailed usecase")
 	}
 
-	var baseOptions = getGlobalBuildahOptions()
+	var baseOptions = getGlobalBuildahOptions("")
 	baseOptions = append(baseOptions, "images")
 	// fmt.Println("options", buildCmd.Path, buildCmd.Args)
 	err := runCommand(configs.Config.Buildah.Path, baseOptions)
@@ -200,7 +203,7 @@ func Prune(opts *configs.PruneCmdOptions, args []string) {
 	if len(args) != 0 {
 		panic("Invalid number of positional argument. Execute command with --help to get detailed usecase")
 	}
-	err := clearBuildCache()
+	err := clearAllImageCache()
 	if err != nil {
 		panic("[devc prune error] : " + err.Error())
 	}
@@ -216,7 +219,7 @@ func Rmi(opts *configs.RmiCmdOptions, args []string) {
 	if len(args) != 1 {
 		panic("Invalid number of positional argument. Execute command with --help to get detailed usecase")
 	}
-	options := getGlobalBuildahOptions()
+	options := getGlobalBuildahOptions("")
 	options = append(options, "rmi")
 	options = append(options, args[0])
 

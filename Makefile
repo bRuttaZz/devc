@@ -12,3 +12,6 @@ install: devc-v*$(ARCH)
 
 update:	go.mod go.sum
 	- @go mod tidy
+
+buildall: scripts/build-all-arch.sh Makefile devc.go go.mod
+	- bash scripts/build-all-arch.sh 

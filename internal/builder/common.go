@@ -24,7 +24,7 @@ func runCommand(name string, cmd []string) (err error) {
 }
 
 // provide global options for buildah
-func getGlobalBuildahOptions() (cmd []string) {
+func getGlobalBuildahOptions(envName string) (cmd []string) {
 	var rootPath string
 	rootPath = filepath.Join(configs.Config.CacheDir, configs.Config.CacheDirSettings.BuildahCache)
 	cmd = []string{
@@ -33,6 +33,14 @@ func getGlobalBuildahOptions() (cmd []string) {
 		"--storage-driver",
 		configs.Config.CacheDirSettings.StorageDriver,
 	}
+	var buildPath string
+	if len(envName) > 0 {
+		buildPath = filepath.Join(envName, configs.Config.EnvSettings.BuildDir)
+	} else {
+		buildPath = filepath.Join(configs.Config.CacheDir, configs.Config.CacheDirSettings.CommonBuildCache)
+	}
+	os.MkdirAll(buildPath, 0755)
+	cmd = append(cmd, "--runroot", buildPath)
 	return
 }
 
@@ -66,14 +74,18 @@ func getBuildOptions() (imageName string, cmd []string, err error) {
 }
 
 // garbage collection
-func clearBuildCache() (err error) {
-	var options = getGlobalBuildahOptions()
-	options = append(options, "prune")
+func clearAllImageCache() (err error) {
+	var options = getGlobalBuildahOptions("")
+	options = append(options, "rmi")
 	options = append(options, "-af")
 	err = runCommand(configs.Config.Buildah.Path, options)
 	if err != nil {
 		return
 	}
-	err = runCommand("rm", []string{"-rf", options[1]})
+	err = os.RemoveAll(filepath.Join(configs.Config.CacheDir, configs.Config.CacheDirSettings.BuildahCache))
+	if err != nil {
+		return
+	}
+	err = os.RemoveAll(filepath.Join(configs.Config.CacheDir, configs.Config.CacheDirSettings.CommonBuildCache))
 	return
 }

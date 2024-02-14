@@ -12,5 +12,6 @@ var Config = &ConfigStruct{
 		BuildahCache:  "from-builds",
 		LoginAuthFile: "auth.json",
 		StorageDriver: "vfs",
+		CommonBuildCache: "build-states",
 	},
 }
