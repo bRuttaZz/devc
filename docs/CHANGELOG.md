@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+
 ## [Unreleased] - yyyy-mm-dd
 **..**
 
@@ -14,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 
-## [v1.1.1] - 2024-02-14
+## [v1.1.2] - 2024-02-14
 **Compatibility improvements! Resolution in issues with buildah in ubuntu**
 
 ### Added
@@ -22,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Removed the usage of `prune` from buildah. The latest `prune` functionality is implemented using `rmi` flags.
 ### Fixed
+- Resolved the bug in removal of existing virtualenv on activation time.
 - Support for prune command in devc (now works with older versions)
 
 
