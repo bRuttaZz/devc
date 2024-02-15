@@ -12,8 +12,8 @@ const activateString string = `
 _DIR_NAME=%v
 # deactivate other venv if exists
 type deactivate &>/dev/null && {
-    echo "[ERROR] error activating devc (an env is already present). Retry after deactivating the current env!";
-    exit 1;
+    echo "[WARNING] deactivating the existing env (it seems like an env is already present).";
+    deactivate ;
 }
 # setup for proot
 _OLD_PATH=$PATH
