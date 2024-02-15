@@ -16,11 +16,11 @@ type EnvSettingsStruct struct {
 
 type CacheDirSettingsStruct struct {
 	ProotCache    string
-	BuildahCache  string		// for dumping image data
+	BuildahCache  string // for dumping image data
 	LoginAuthFile string
 
-	StorageDriver string
-	CommonBuildCache string		// for dumping state dat
+	StorageDriver    string
+	CommonBuildCache string // for dumping state dat
 }
 
 type ConfigStruct struct {

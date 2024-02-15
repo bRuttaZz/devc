@@ -8,10 +8,10 @@ var Config = &ConfigStruct{
 		DevcBin:  "bin",
 	},
 	CacheDirSettings: CacheDirSettingsStruct{
-		ProotCache:    "proot",
-		BuildahCache:  "from-builds",
-		LoginAuthFile: "auth.json",
-		StorageDriver: "vfs",
+		ProotCache:       "proot",
+		BuildahCache:     "from-builds",
+		LoginAuthFile:    "auth.json",
+		StorageDriver:    "vfs",
 		CommonBuildCache: "build-states",
 	},
 }
