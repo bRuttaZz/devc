@@ -1,39 +1,15 @@
 package utils
 
 import (
-	"fmt"
 	"os"
-	"os/exec"
 	"path/filepath"
-	"strings"
 
-	"math/rand"
+	"github.com/google/uuid"
 )
-
-// for random number generation
-const letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-
-// generate random string of fixed length
-func RandString(n int) string {
-	b := make([]byte, n)
-	for i := range b {
-		b[i] = letters[rand.Intn(len(letters))]
-	}
-	return string(b)
-}
 
 // generate a uuid / or standard sized string
 func CreateRandomString() (outString string) {
-	newUUID, err := exec.Command("uuidgen").Output()
-	if err != nil {
-		fmt.Println("[warning] error generating uuid : ", err)
-		fmt.Println("[warning] forwarding with random string generation!")
-	} else {
-		outString = strings.Trim(string(newUUID), "\n")
-	}
-	if len(outString) != 36 {
-		outString = RandString(36)
-	}
+	outString = uuid.New().String()
 	return
 }
 
