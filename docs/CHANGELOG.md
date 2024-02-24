@@ -6,7 +6,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
-
 ## [Unreleased] - yyyy-mm-dd
 **..**
 
@@ -15,7 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 
-## [v1.1.2] - 2024-02-14
+
+## [v1.1.3] - 2024-02-24
 **Compatibility improvements! Resolution in issues with buildah in ubuntu**
 
 ### Added
@@ -25,7 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Resolved the bug in removal of existing virtualenv on activation time.
 - Support for prune command in devc (now works with older versions)
-
+- The issue araised due to invalid tag name (due to uppercase letters) has resolved by implementing google/uuid, replacing the existig poor implementaion.
 
 
 ## [v1.1.0] - 2024-02-14
