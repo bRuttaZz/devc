@@ -1,3 +1,12 @@
+/*
+devc: Containers for Developers (Container as a Directory)!
+(command line utility)
+
+Offers developers a user-friendly interface for constructing applications
+using containers! Generate reusable usable virtual environments from
+Containerfiles or container images, activate them, engage in development,
+implement changes, and reuse seamlessly
+*/
 package main
 
 import (
