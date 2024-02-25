@@ -41,7 +41,10 @@ Matrix group : [#devc:matrix.org](https://matrix.to/#/!nEmTMcQUkCipApdYVE:matrix
 Github : [Discussions](https://github.com/bRuttaZz/devc/discussions), [Issues](https://github.com/bRuttaZz/devc/issues)
 
 
-## Intro <tag id="intro">
+
+## Intro
+
+<tag id="intro"></tag>
 
 Have you ever utilized Docker or Podman in local application development, just for resolving the dependency issues? If so, have you encountered challenges in creating and maintaining the Docker environment for development? This may involve rebuilding your project with each Dockerfile change, mounting your local codebase to the container, dealing with permission overhead, and connecting your IDE to the container.
 
@@ -66,7 +69,9 @@ Following points may detail about the behavior of devc
 
 **About the Name** : As you may have guessed by now, the name "devc" is made of two words "developer" and "container". i.e., **containers for developers, but here developers got priority :)**
 
-## Usage <tag id="usage">
+## Usage
+
+<tag id="usage"></tag>
 
 After installation (BTW, you can find the detailed installation procedure over [here](#installation)), execute
 ```sh
@@ -113,7 +118,9 @@ Again simple, as devc is not running any demon processes, one can execute `deact
 ### 4. Removing the venv
 **In a normal usecase one can simply delete the env directory** from the UI after use (yeah for the CLI people, you got `rm -r` option as well).
 
-## Installation <tag id="installation">
+## Installation
+
+<tag id="installation"></tag>
 
 One can install devc either by using an installation script or by following build instructions to build it from source. 
 
@@ -160,7 +167,10 @@ It's too simple,
     2. (optionally for installing) `make install`
 5. Execute `devc --version` to check if everything is doing good.
 
-## Uninstalling <tag id="uninstalling">
+## Uninstalling
+
+<tag id="uninstalling"></tag>
+
 You can simply executing the following to remove the devc binary from your path
 ```sh
 sudo rm $(which devc)  
@@ -172,12 +182,18 @@ sudo rm /etc/bash_completion.d/devc-complete
 In addition devc may have installed `buildah` and it's dependencies. You can simply remove it using your distribution's package manager (apt uninstall, dnf remove, etc..)
 
 
-## Credits <tag id="credits">
+## Credits 
+
+<tag id="credits"></tag>
+
 * [Logo](https://github.com/bRuttaZz/devc/blob/main/assets/tad_hd.png) : [Dev G](https://www.instagram.com/dev.g.__) (CC BY 4.0)
 * [Proot](https://github.com/proot-me/proot)
 * [Buildah](https://github.com/containers/buildah) 
 
-## Known Issues <tag id="known-issues">
+## Known Issues
+
+<tag id="known-issues"></tag>
+
 * Currently there is some problem regarding issuing apt update in ubuntu/deb based images (gpg key update related issues)
 * Some mount points has to be refined. Think some of them are useless at times. (It's hard to generalize between different distros)
 
