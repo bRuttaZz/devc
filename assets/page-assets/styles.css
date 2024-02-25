@@ -1,0 +1,231 @@
+:root {
+    background-color: #fafafa;
+    font-family: "Nunito", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 350;
+    font-style: normal;
+}
+
+a {
+    text-decoration: none;
+}
+
+footer-links {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+footer a {
+    font-size: small;
+    padding: 5px;
+}
+
+.skeleton-header {
+    font-family: "Nunito", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+    margin-top: 15px;
+}
+
+.heading {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.heading div {
+    text-align: left;
+    font-size: small;
+    font-weight: 450;
+    line-height: 2cap;
+    color: #5b5a5a;
+}
+
+.headd {
+    font-size: xx-large;
+    font-weight: 700;
+    color: #3475a8;
+}
+
+.navbar {
+    color: #8f8f8f;
+    margin-top: 15px;
+}
+
+.navitems {
+    padding-left: 5px;
+    padding-right: 5px;
+    cursor: pointer;
+}
+
+.navitems.enabled {
+    background-color: #3476a88c;
+    color: #fafafa;
+    border-radius: 6px;
+    padding: 5px;
+    padding-top: 2px;
+    padding-bottom: 1px;
+}
+
+.nav-bar {
+    color: #3e65ae59;
+    ;
+}
+
+.content-body {
+    width: 90vw;
+    margin: 5vw;
+    margin-top: 15px;
+}
+
+
+
+.placeholder-content {
+    height: 12px;
+    overflow: hidden;
+    background: #000;
+    position: relative;
+    margin-bottom: 9px;
+    border-radius: 5px;
+
+    animation-duration: 1.7s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    animation-name: placeholderAnimate;
+    background: #f6f7f8;
+    background: linear-gradient(to right, #eee 2%, #ddd 18%, #eee 33%);
+    background-size: 1300px;
+
+    &_item {
+        width: 100%;
+        height: 20px;
+        position: absolute;
+        background: #fff;
+        z-index: 2;
+
+        &:after,
+        &:before {
+            width: inherit;
+            height: inherit;
+            content: '';
+            position: absolute;
+        }
+
+        &:nth-child(1) {
+            top: 0;
+            left: 0;
+        }
+
+        &:nth-child(2) {
+            top: 20px;
+            left: 0;
+            width: 10%;
+            height: 90px;
+        }
+
+        &:nth-child(3) {
+            top: 0px;
+            left: 0;
+            width: 10%;
+            height: 100%;
+        }
+
+        &:nth-child(4) {
+            top: 20px;
+            width: 20px;
+            left: 170px;
+            height: 90px;
+        }
+
+        &:nth-child(5) {
+            top: 40px;
+            left: 190px;
+            height: 12px;
+        }
+
+        &:nth-child(6) {
+            top: 75px;
+            left: 190px;
+            height: 12px;
+        }
+
+        &:nth-child(7) {
+            top: 20px;
+            right: 0;
+            width: 23%;
+            height: 20px;
+        }
+
+        &:nth-child(8) {
+            top: 0;
+            right: 0;
+            width: 10%;
+            height: 100%;
+        }
+
+        &:nth-child(9) {
+            top: 110px;
+            height: 17px;
+            left: 0;
+        }
+
+        &:nth-child(10) {
+            top: 149px;
+            height: 12px;
+            left: 0;
+        }
+
+        &:nth-child(11) {
+            top: 183px;
+            left: 0;
+            height: 100%;
+        }
+    }
+}
+
+@keyframes placeholderAnimate {
+    0% {
+        background-position: -650px 0;
+    }
+
+    100% {
+        background-position: 650px 0;
+    }
+}
+
+.d-none {
+    display: none;
+}
+
+/* For sytnax highlighting */
+
+code {
+    padding-left: 3px;
+    padding-right: 3px;
+    border-radius: 5px;
+    color: #db220f;
+    background-color: #ececec;
+}
+
+.big-code-bg {
+    background-color: #ececec;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.big-code-bg code {
+    color: #68055d;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+blockquote {
+    background-color: #eeffcf;
+    border-radius: 4px;
+    padding: 10px;
+}
