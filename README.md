@@ -30,7 +30,11 @@ using **devc** one can create a virtualenv (similar to python venv, as a directo
 
 <!-- </details> -->
 
-Detailed (I mean semi-detailed) [CLI usage manual](./misc/man.md), and [release notes](./misc/CHANGELOG.md).
+Detailed (I mean semi-detailed) [CLI usage manual](./docs/man.md), and [release notes](./docs/CHANGELOG.md).
+
+Found an issue? Let's discus,<br>
+Matrix group : [#devc:matrix.org](https://matrix.to/#/!nEmTMcQUkCipApdYVE:matrix.org?via=matrix.org) <br>
+Github : [Discussions](https://github.com/bRuttaZz/devc/discussions), [Issues](https://github.com/bRuttaZz/devc/issues)
 
 Found an issue? Let's discus,<br>
 Matrix group : [#devc:matrix.org](https://matrix.to/#/!nEmTMcQUkCipApdYVE:matrix.org?via=matrix.org) <br>
@@ -67,7 +71,7 @@ After installation (BTW, you can find the detailed installation procedure over [
 ```sh
 devc --version
 ```
-in your terminal to test if everything went well. For detailed usage manual refer [devc manual](./misc/man.md)
+in your terminal to test if everything went well. For detailed usage manual refer [devc manual](./docs/man.md)
 
 ### 1. Creating a devc env
 One can create a devc env either by pulling a docker/OCI container image from a container registry, or by building a new one from a Dockerfile or Containerfile.
@@ -100,7 +104,7 @@ After successful creation one can activate devc env just like a python virtualen
 ```sh
 source <env-name>/bin/activate
 ``` 
-If everything went well, your terminal prompt will be prefixed with `(devc)` (the behavior may change if the container's default shell is not supporting much modifications. In such scenarios it's recommended to go with `devc activate` command. Refer the [manual](./misc/man.md) for more info).
+If everything went well, your terminal prompt will be prefixed with `(devc)` (the behavior may change if the container's default shell is not supporting much modifications. In such scenarios it's recommended to go with `devc activate` command. Refer the [manual](./docs/man.md) for more info).
 
 ### 3. Deactivating the devc terminal
 Again simple, as devc is not running any demon processes, one can execute `deactivate` to deactivate the session, or `ctrl + d` combo to quit the terminal.
