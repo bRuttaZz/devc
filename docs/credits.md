@@ -1,3 +1,7 @@
+<center>
+    <img src="./assets/cover-image.png" alt="devc" width="800px" style="border-radius: 10px;">
+</center>
+
 Matrix group : [#devc:matrix.org](https://matrix.to/#/!nEmTMcQUkCipApdYVE:matrix.org?via=matrix.org) 
 
 # Collaborators
