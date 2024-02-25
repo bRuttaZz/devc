@@ -15,6 +15,10 @@
 <!-- <details>  -->
 <!-- <summary><b>Quick Links</b></summary> -->
 
+## TL;DR 
+using **devc** one can create a virtualenv (similar to python venv, as a directory) from a Dockerfile / Containerfile, or directly from a docker image resides on a container regisrty of your choice. Then activate the env, edit your code and run it inside the (jailed) container-like environment. You can install new things, code your app using any containers available, all in user space. (No deamons included :). <br>Jump to [usage section](#usage)
+
+
 ## Quick Links
 
 1. [Intro](#intro)
@@ -26,12 +30,13 @@
 
 <!-- </details> -->
 
-Detailed (I mean semi-detailed) [CLI usage manual](./misc/man.md), and [release notes](./misc/CHANGELOG.md).
+Detailed (I mean semi-detailed) [CLI usage manual](./docs/man.md), and [release notes](./docs/CHANGELOG.md).
+
+Found an issue? Let's discus,<br>
+Matrix group : [#devc:matrix.org](https://matrix.to/#/!nEmTMcQUkCipApdYVE:matrix.org?via=matrix.org) <br>
+Github : [Discussions](https://github.com/bRuttaZz/devc/discussions), [Issues](https://github.com/bRuttaZz/devc/issues)
 
 ## Intro
-
-> **TL;DR**: The good news is, if you're on Linux, you can give **devc** a try. It's a streamlined container tool designed for developers working on local development. It's compatible with contemporary container standards like Docker and OCI. **devc** facilitates you with a python-virtual-environment kind of way to interact with your container environments.  
-
 
 Have you ever utilized Docker or Podman in local application development, just for resolving the dependency issues? If so, have you encountered challenges in creating and maintaining the Docker environment for development? This may involve rebuilding your project with each Dockerfile change, mounting your local codebase to the container, dealing with permission overhead, and connecting your IDE to the container.
 
@@ -62,7 +67,7 @@ After installation (BTW, you can find the detailed installation procedure over [
 ```sh
 devc --version
 ```
-in your terminal to test if everything went well. For detailed usage manual refer [devc manual](./misc/man.md)
+in your terminal to test if everything went well. For detailed usage manual refer [devc manual](./docs/man.md)
 
 ### 1. Creating a devc env
 One can create a devc env either by pulling a docker/OCI container image from a container registry, or by building a new one from a Dockerfile or Containerfile.
@@ -95,7 +100,7 @@ After successful creation one can activate devc env just like a python virtualen
 ```sh
 source <env-name>/bin/activate
 ``` 
-If everything went well, your terminal prompt will be prefixed with `(devc)` (the behavior may change if the container's default shell is not supporting much modifications. In such scenarios it's recommended to go with `devc activate` command. Refer the [manual](./misc/man.md) for more info).
+If everything went well, your terminal prompt will be prefixed with `(devc)` (the behavior may change if the container's default shell is not supporting much modifications. In such scenarios it's recommended to go with `devc activate` command. Refer the [manual](./docs/man.md) for more info).
 
 ### 3. Deactivating the devc terminal
 Again simple, as devc is not running any demon processes, one can execute `deactivate` to deactivate the session, or `ctrl + d` combo to quit the terminal.
