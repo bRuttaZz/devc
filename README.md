@@ -1,6 +1,6 @@
 # devC
 
-<a href="./assets/LICENSE.md" title="Logo by Dev G"><img src="./assets/tad.png" width=150 alt="Logo by Dev G"/></a>
+<a class="d-none" href="./assets/LICENSE.md" title="Logo by Dev G"><img src="./assets/tad.png" width=150 alt="Logo by Dev G"/></a>
 
 **Containers For Developers (Container as a Folder)**
 
@@ -30,17 +30,15 @@ using **devc** one can create a virtualenv (similar to python venv, as a directo
 
 <!-- </details> -->
 
+<tag class="d-none">
 Detailed (I mean semi-detailed) [CLI usage manual](./docs/man.md), and [release notes](./docs/CHANGELOG.md).
+</tag>
 
 Found an issue? Let's discus,<br>
 Matrix group : [#devc:matrix.org](https://matrix.to/#/!nEmTMcQUkCipApdYVE:matrix.org?via=matrix.org) <br>
 Github : [Discussions](https://github.com/bRuttaZz/devc/discussions), [Issues](https://github.com/bRuttaZz/devc/issues)
 
-Found an issue? Let's discus,<br>
-Matrix group : [#devc:matrix.org](https://matrix.to/#/!nEmTMcQUkCipApdYVE:matrix.org?via=matrix.org) <br>
-Github : [Discussions](https://github.com/bRuttaZz/devc/discussions), [Issues](https://github.com/bRuttaZz/devc/issues)
-
-## Intro
+## Intro <tag id="intro">
 
 Have you ever utilized Docker or Podman in local application development, just for resolving the dependency issues? If so, have you encountered challenges in creating and maintaining the Docker environment for development? This may involve rebuilding your project with each Dockerfile change, mounting your local codebase to the container, dealing with permission overhead, and connecting your IDE to the container.
 
@@ -65,13 +63,13 @@ Following points may detail about the behavior of devc
 
 **About the Name** : As you may have guessed by now, the name "devc" is made of two words "developer" and "container". i.e., **containers for developers, but here developers got priority :)**
 
-## Usage
+## Usage <tag id="usage">
 
 After installation (BTW, you can find the detailed installation procedure over [here](#installation)), execute
 ```sh
 devc --version
 ```
-in your terminal to test if everything went well. For detailed usage manual refer [devc manual](./docs/man.md)
+in your terminal to test if everything went well. For detailed usage manual refer [devc manual](ttps://github.com/bRuttaZz/devc/blob/main/docs/man.md)
 
 ### 1. Creating a devc env
 One can create a devc env either by pulling a docker/OCI container image from a container registry, or by building a new one from a Dockerfile or Containerfile.
@@ -104,7 +102,7 @@ After successful creation one can activate devc env just like a python virtualen
 ```sh
 source <env-name>/bin/activate
 ``` 
-If everything went well, your terminal prompt will be prefixed with `(devc)` (the behavior may change if the container's default shell is not supporting much modifications. In such scenarios it's recommended to go with `devc activate` command. Refer the [manual](./docs/man.md) for more info).
+If everything went well, your terminal prompt will be prefixed with `(devc)` (the behavior may change if the container's default shell is not supporting much modifications. In such scenarios it's recommended to go with `devc activate` command. Refer the [manual](ttps://github.com/bRuttaZz/devc/blob/main/docs/man.md) for more info).
 
 ### 3. Deactivating the devc terminal
 Again simple, as devc is not running any demon processes, one can execute `deactivate` to deactivate the session, or `ctrl + d` combo to quit the terminal.
@@ -112,11 +110,13 @@ Again simple, as devc is not running any demon processes, one can execute `deact
 ### 4. Removing the venv
 **In a normal usecase one can simply delete the env directory** from the UI after use (yeah for the CLI people, you got `rm -r` option as well).
 
-## Installation
+## Installation <tag id="installation">
 
-### Install using the `install.sh` script
+One can install devc either by using an installation script or by following build instructions to build it from source. 
 
-There is a ready to go shell script one can use to simply install devc and its dependencies into your system. You can find the script over [here](./scripts/install.sh)
+### 1. Install using the `install.sh` script
+
+There is a ready to go shell script one can use to simply install devc and its dependencies into your system. You can find the script over [here](ttps://github.com/bRuttaZz/devc/blob/main/scripts/install.sh)
 
 #### If you blindly trust the author (@bRuttaZz)
 Execute the following to install devc on a single command
@@ -142,7 +142,9 @@ sh install.sh
 ```
 You could have trust me from the first place! JK it's good to analyse a script before its execution
 
-### Building from source
+### 2. Building from source
+
+> **NB**: pre-compiled binaries can be found at [releases](https://github.com/bruttazz/devc/releases/latest). After installing the bellow mentioned dependencies one can directly use the binaries from the terminal (after making it executable, of course).
 
 It's too simple,
 1. Install the dependencies 
@@ -155,7 +157,7 @@ It's too simple,
     2. (optionally for installing) `make install`
 5. Execute `devc --version` to check if everything is doing good.
 
-## Uninstalling
+## Uninstalling <tag id="uninstalling">
 You can simply executing the following to remove the devc binary from your path
 ```sh
 sudo rm $(which devc)  
@@ -167,12 +169,12 @@ sudo rm /etc/bash_completion.d/devc-complete
 In addition devc may have installed `buildah` and it's dependencies. You can simply remove it using your distribution's package manager (apt uninstall, dnf remove, etc..)
 
 
-## Credits
-* Logo : [Dev G](https://www.instagram.com/dev.g.__)
+## Credits <tag id="credits">
+* [Logo](https://github.com/bRuttaZz/devc/blob/main/assets/tad_hd.png) : [Dev G](https://www.instagram.com/dev.g.__) (CC BY 4.0)
 * [Proot](https://github.com/proot-me/proot)
 * [Buildah](https://github.com/containers/buildah) 
 
-## Known Issues
+## Known Issues <tag id="known-issues">
 * Currently there is some problem regarding issuing apt update in ubuntu/deb based images (gpg key update related issues)
 * Some mount points has to be refined. Think some of them are useless at times. (It's hard to generalize between different distros)
 
