@@ -31,10 +31,12 @@ using **devc** one can create a virtualenv (similar to python venv, as a directo
 <!-- </details> -->
 
 <tag class="d-none">
+
 Detailed (I mean semi-detailed) [CLI usage manual](./docs/man.md), and [release notes](./docs/CHANGELOG.md).
+
 </tag>
 
-Found an issue? Let's discus,<br>
+**Found an issue? Let's discus,**<br>
 Matrix group : [#devc:matrix.org](https://matrix.to/#/!nEmTMcQUkCipApdYVE:matrix.org?via=matrix.org) <br>
 Github : [Discussions](https://github.com/bRuttaZz/devc/discussions), [Issues](https://github.com/bRuttaZz/devc/issues)
 
