@@ -15,6 +15,10 @@
 <!-- <details>  -->
 <!-- <summary><b>Quick Links</b></summary> -->
 
+## TL;DR 
+using **devc** one can create a virtualenv (similar to python venv, as a directory) from a Dockerfile / Containerfile, or directly from a docker image resides on a container regisrty of your choice. Then activate the env, edit your code and run it inside the (jailed) container-like environment. You can install new things, code your app using any containers available, all in user space. (No deamons included :). <br>Jump to [usage section](#usage)
+
+
 ## Quick Links
 
 1. [Intro](#intro)
@@ -28,10 +32,11 @@
 
 Detailed (I mean semi-detailed) [CLI usage manual](./misc/man.md), and [release notes](./misc/CHANGELOG.md).
 
+Found an issue? Let's discus,<br>
+Matrix group : [#devc:matrix.org](https://matrix.to/#/!nEmTMcQUkCipApdYVE:matrix.org?via=matrix.org) <br>
+Github : [Discussions](https://github.com/bRuttaZz/devc/discussions), [Issues](https://github.com/bRuttaZz/devc/issues)
+
 ## Intro
-
-> **TL;DR**: The good news is, if you're on Linux, you can give **devc** a try. It's a streamlined container tool designed for developers working on local development. It's compatible with contemporary container standards like Docker and OCI. **devc** facilitates you with a python-virtual-environment kind of way to interact with your container environments.  
-
 
 Have you ever utilized Docker or Podman in local application development, just for resolving the dependency issues? If so, have you encountered challenges in creating and maintaining the Docker environment for development? This may involve rebuilding your project with each Dockerfile change, mounting your local codebase to the container, dealing with permission overhead, and connecting your IDE to the container.
 
